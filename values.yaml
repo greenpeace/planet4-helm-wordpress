@@ -1,0 +1,140 @@
+# Default values for wordpress.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+hostname: greenpeace.org
+
+php:
+  enabled: true
+  image:
+    repository: gcr.io/planet-4-151612/p4-gpi-app
+    tag: develop
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 9000
+
+redis:
+  persistence:
+    enabled: false
+
+openresty:
+  image:
+    repository: gcr.io/planet-4-151612/p4-gpi-openresty
+    tag: develop
+    pullPolicy: Always
+  fastcgi:
+    redis: true
+  service:
+    type: ClusterIP
+    port: 80
+
+newrelic:
+  enabled: true
+  # license: "newrelic license"
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  path: /international
+  hosts:
+    - greenpeace.org
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+fastcgi:
+  backend: false
+  redis:
+    enabled: true
+
+pagespeed:
+  redis:
+    enabled: false
+  enabled: false
+
+##
+## MariaDB chart configuration
+##
+mariadb:
+  ## Whether to use the database specified as a requirement or not.
+  ## If you want to use an external database set this to false and supply details to externalDatabase above
+  enabled: true
+
+  ## MariaDB admin password
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
+  ##
+  # mariadbRootPassword:
+
+  ## Create a database
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-on-first-run
+  ##
+  mariadbDatabase: planet4_dev
+
+  ## Create a database user
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
+  ##
+  mariadbUser: planet4
+
+  ## Password for mariadbUser
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
+  ##
+  # mariadbPassword: "mariadb password"
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    enabled: false
+    ## mariadb data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    accessMode: ReadWriteOnce
+    size: 8Gi
+
+externalDatabase:
+## All of these values are only used when mariadb.enabled is set to false
+  ## Database host
+  host: localhost
+
+  ## Database Root User (so wordpress can create the db schema etc)
+  # rootPassword:
+
+  ## non-root Username for Wordpress Database
+  user: bn_wordpress
+
+  ## Database password
+  # password:
+
+  ## Database name
+  database: bitnami_wordpress
+
+  ## Database port number
+  port: 3306
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

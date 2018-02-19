@@ -1,0 +1,70 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "openresty.fullname" . }}
+  labels:
+    app: {{ template "openresty.name" . }}
+    chart: {{ template "wordpress.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "openresty.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "openresty.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}"
+          imagePullPolicy: {{ .Values.openresty.image.pullPolicy }}
+          env:
+          - name: APP_HOSTNAME
+            value: {{ .Values.hostname | quote }}
+          {{- if .Values.php.enabled }}
+          - name: PHP_ENABLED
+            value: "true"
+          - name: OPENRESTY_FASTCGI_BACKEND
+            value: "{{ template "php.fullname" . }}:9000"
+          {{- end }}
+          - name: PAGESPEED_ENABLED
+            value: {{ .Values.pagespeed.enabled | quote }}
+          - name: REDIS_FASTCGI_CACHE_ENABLED
+          {{- if .Values.fastcgi.redis.enabled }}
+            value: "true"
+          - name: REDIS_FASTCGI_CACHE_SERVER
+            value: "{{ template "redis.fullname" . }}:6379"
+          {{- else }}
+            value: "false"
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
