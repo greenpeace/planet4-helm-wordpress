@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "openresty.fullname" . }}
   labels:
-    app: {{ template "openresty.name" . }}
+    app: {{ .Release.Name }}-wordpress
     chart: {{ template "wordpress.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
