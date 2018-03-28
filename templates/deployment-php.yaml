@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "php.fullname" . }}
   labels:
-    app: {{ template "php.name" . }}
+    app: {{ .Release.Name }}-wordpress
     chart: {{ template "wordpress.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -24,6 +24,14 @@ spec:
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
           env:
+            - name: APP_HOSTNAME
+              value: {{ .Values.hostname | quote }}
+            - name: WP_SITE_URL
+              value: {{ .Values.wpSiteurl }}
+            - name: WP_SITE_HOME
+              value: {{ default .Values.wpSiteurl .Values.wpSitehome }}
+            - name: WP_SET_OPTIONS_ON_BOOT
+              value: {{ .Values.wpSetOptionsOnBoot | quote }}
             {{- if .Values.newrelic.enabled }}
             - name: NEWRELIC_ENABLED
               value: "true"
@@ -32,6 +40,7 @@ spec:
             {{- end }}
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
+            {{- if .Values.mariadb.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-mariadb-mariadb"
             - name: MYSQL_USER
@@ -43,6 +52,21 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-mariadb-mariadb"
                   key: mariadb-password
+            {{- end }}
+            {{- if .Values.sqlproxy.enabled }}
+            - name: WP_DB_HOST
+              value: "{{ .Release.Name }}-sqlproxy"
+            - name: MYSQL_USER
+              value: {{ .Values.dbUsername | quote }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.dbDatabase | quote }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-db"
+                  key: db-password
+            {{- end }}
+
           ports:
             - name: fastcgi
               containerPort: {{ .Values.php.service.port }}
