@@ -42,18 +42,22 @@ spec:
           {{- else }}
             value: "false"
           {{- end }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+          {{- if .Values.healthProbes }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: {{ .Values.healthProbesTimeout }}
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: {{ .Values.healthProbesTimeout }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
