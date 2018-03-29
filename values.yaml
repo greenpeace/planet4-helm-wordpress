@@ -5,9 +5,24 @@
 replicaCount: 1
 
 hostname: k8s.p4.greenpeace.org
-wpSiteurl: k8s.p4.greenpeace.org/international
-wpSitehome: k8s.p4.greenpeace.org/international
-wpSetOptionsOnBoot: true
+
+wp:
+  authKey: ""
+  authSalt: ""
+  loggedInKey: ""
+  loggedInSalt: ""
+  nonceKey: ""
+  nonceSalt: ""
+  secureAuthKey: ""
+  secureAuthSalt: ""
+  setOptionsOnBoot: true
+  siteHome: k8s.p4.greenpeace.org/international
+  siteUrl: k8s.p4.greenpeace.org/international
+  stateless:
+    enabled: true
+    mode: stateless
+    serviceAccountKey:
+
 
 dbUsername: testing
 #dbPassword: testing

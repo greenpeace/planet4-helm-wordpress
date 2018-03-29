@@ -27,11 +27,11 @@ spec:
             - name: APP_HOSTNAME
               value: {{ .Values.hostname | quote }}
             - name: WP_SITE_URL
-              value: {{ .Values.wpSiteurl }}
+              value: {{ .Values.wp.siteUrl }}
             - name: WP_SITE_HOME
-              value: {{ default .Values.wpSiteurl .Values.wpSitehome }}
+              value: {{ default .Values.wp.Siteurl .Values.wp.siteHome }}
             - name: WP_SET_OPTIONS_ON_BOOT
-              value: {{ .Values.wpSetOptionsOnBoot | quote }}
+              value: {{ .Values.wp.setOptionsOnBoot | quote }}
             {{- if .Values.newrelic.enabled }}
             - name: NEWRELIC_ENABLED
               value: "true"
@@ -40,6 +40,17 @@ spec:
             {{- end }}
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
+            - name: WP_STATELESS_ENABLED
+              value: {{ .Values.wp.stateless.enabled | quote }}
+            - name: WP_STATELESS_MEDIA_BUCKET
+              value: {{ .Values.wp.stateless.bucket | quote }}
+            - name: WP_STATELESS_MEDIA_MODE
+              value: {{ .Values.wp.stateless.mode | quote }}
+            - name: WP_STATELESS_MEDIA_JSON_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-stateless"
+                  key: credentials.json
             {{- if .Values.mariadb.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-mariadb-mariadb"
@@ -66,6 +77,22 @@ spec:
                   name: "{{ .Release.Name }}-db"
                   key: db-password
             {{- end }}
+            - name: WP_AUTH_KEY
+              value: {{ .Values.wp.authKey | quote }}
+            - name: WP_AUTH_SALT
+              value: {{ .Values.wp.authSalt | quote }}
+            - name: WP_LOGGED_IN_KEY
+              value: {{ .Values.wp.loggedInKey | quote }}
+            - name: WP_LOGGED_IN_SALT
+              value: {{ .Values.wp.loggedInSalt | quote }}
+            - name: WP_NONCE_KEY
+              value: {{ .Values.wp.nonceKey | quote }}
+            - name: WP_NONCE_SALT
+              value: {{ .Values.wp.nonceSalt | quote }}
+            - name: WP_SECURE_AUTH_KEY
+              value: {{ .Values.wp.secureAuthKey | quote }}
+            - name: WP_SECURE_AUTH_SALT
+              value: {{ .Values.wp.secureAuthSalt | quote }}
 
           ports:
             - name: fastcgi
