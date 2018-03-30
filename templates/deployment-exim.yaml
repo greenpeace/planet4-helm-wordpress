@@ -1,0 +1,72 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "exim.fullname" . }}
+  labels:
+    app: {{ .Release.Name }}-wordpress
+    chart: {{ template "wordpress.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.exim.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "exim.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "exim.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}"
+          imagePullPolicy: {{ .Values.exim.image.pullPolicy }}
+          env:
+          - name: EXIM_SMARTHOST
+            value: {{ .Values.exim.smarthost | quote }}
+          - name: EXIM_MAIL_FROM
+            value: {{ .Values.exim.mailFrom | quote }}
+          {{- if and .Values.exim.password .Values.exim.password -}}
+          - name: EXIM_SMARTHOST_AUTH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-exim"
+                key: password
+          - name: EXIM_SMARTHOST_AUTH_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-exim"
+                key: username
+          {{- end }}
+          {{- if .Values.exim.healthProbes }}
+          readinessProbe:
+            tcpSocket:
+              port: smtp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: smtp
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          {{- end }}
+          ports:
+            - name: smtp
+              containerPort: {{ .Values.exim.service.port }}
+              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

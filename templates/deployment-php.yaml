@@ -77,6 +77,10 @@ spec:
                   name: "{{ .Release.Name }}-db"
                   key: db-password
             {{- end }}
+
+            - name: SSMTP_MAIL_RELAY
+              value: {{ template "exim.fullname" . }}
+
             - name: WP_AUTH_KEY
               value: {{ .Values.wp.authKey | quote }}
             - name: WP_AUTH_SALT
