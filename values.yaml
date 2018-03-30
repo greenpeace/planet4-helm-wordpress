@@ -33,7 +33,7 @@ php:
   image:
     repository: gcr.io/planet4-gpi/p4-gpi-app
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 9000
@@ -52,7 +52,7 @@ openresty:
   image:
     repository: gcr.io/planet4-gpi/p4-gpi-openresty
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   fastcgi:
     redis: true
   service:
