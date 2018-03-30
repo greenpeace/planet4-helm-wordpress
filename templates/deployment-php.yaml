@@ -32,14 +32,25 @@ spec:
               value: {{ default .Values.wp.Siteurl .Values.wp.siteHome }}
             - name: WP_SET_OPTIONS_ON_BOOT
               value: {{ .Values.wp.setOptionsOnBoot | quote }}
+
             {{- if .Values.newrelic.enabled }}
             - name: NEWRELIC_ENABLED
               value: "true"
+            - name: NEWRELIC_APPNAME
+              value: {{ .Values.newrelic.appname | quote }}
             - name: NEWRELIC_LICENSE
-              value: {{ .Values.newrelic.license | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-newrelic"
+                  key: license
             {{- end }}
+
+            - name: PHP_MEMORY_LIMIT
+              value: {{ .Values.php.memoryLimit | quote }}
+
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
+
             - name: WP_STATELESS_ENABLED
               value: {{ .Values.wp.stateless.enabled | quote }}
             - name: WP_STATELESS_MEDIA_BUCKET
