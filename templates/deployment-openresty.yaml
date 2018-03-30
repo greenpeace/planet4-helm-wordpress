@@ -42,17 +42,17 @@ spec:
           {{- else }}
             value: "false"
           {{- end }}
-          {{- if .Values.openresty.healthProbes }}
+          {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: {{ .Values.openresty.healthProbesTimeout }}
+            initialDelaySeconds: {{ .Values.openresty.healthProbes.livenessDelay }}
           readinessProbe:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: {{ .Values.openresty.healthProbesTimeout }}
+            initialDelaySeconds: {{ .Values.openresty.healthProbes.readinessDelay }}
           {{- end }}
           ports:
             - name: http

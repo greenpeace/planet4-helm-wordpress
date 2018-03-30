@@ -62,6 +62,7 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-stateless"
                   key: credentials.json
+
             {{- if .Values.mariadb.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-mariadb-mariadb"
@@ -75,6 +76,7 @@ spec:
                   name: "{{ .Release.Name }}-mariadb-mariadb"
                   key: mariadb-password
             {{- end }}
+
             {{- if .Values.sqlproxy.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-sqlproxy"
@@ -113,16 +115,18 @@ spec:
             - name: fastcgi
               containerPort: {{ .Values.php.service.port }}
               protocol: TCP
-              readinessProbe:
-                tcpSocket:
-                  port: {{ .Values.php.service.port }}
-                initialDelaySeconds: 5
-                periodSeconds: 10
-              livenessProbe:
-                tcpSocket:
-                  port: {{ .Values.php.service.port }}
-                initialDelaySeconds: 15
-                periodSeconds: 20
+          {{- if .Values.php.healthProbes.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.php.service.port }}
+            initialDelaySeconds: {{ .Values.php.healthProbes.readinessDelay }}
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.php.service.port }}
+            initialDelaySeconds: {{ .Values.php.healthProbes.livenessDelay }}
+            periodSeconds: 20
+          {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
