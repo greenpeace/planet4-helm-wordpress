@@ -21,10 +21,12 @@ wp:
   stateless:
     enabled: true
     mode: stateless
+    # Pass in from environment
     serviceAccountKey:
 
 
 dbUsername: testing
+# Pass in from environment
 #dbPassword: testing
 dbDatabase: wordpress_db
 
@@ -110,10 +112,10 @@ sqlproxy:
   enabled: true
   cloudsql:
     instances:
-      - instance: p4-gpi-k8s
-        project: planet4-gpi
-        region: us-central1
-        port: 3306
+      #- instance: db-instance-name
+      #  project: gcp-project
+      #  region: us-central1
+      #  port: 3306
 
   ## Base64 encoded service account json
   ## Use --set sqlproxy.serviceAccountKey="$(cat service-account.json | base64 -w 0)"
