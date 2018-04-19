@@ -45,12 +45,12 @@ spec:
           {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:
-              path: /
+              path: /health_php.php
               port: http
             initialDelaySeconds: {{ .Values.openresty.healthProbes.livenessDelay }}
           readinessProbe:
             httpGet:
-              path: /
+              path: /health_php.php
               port: http
             initialDelaySeconds: {{ .Values.openresty.healthProbes.readinessDelay }}
           {{- end }}
