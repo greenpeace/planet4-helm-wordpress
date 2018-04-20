@@ -50,11 +50,13 @@ spec:
               path: /health_php.php
               port: http
             initialDelaySeconds: {{ .Values.openresty.healthProbes.livenessDelay }}
+            periodSeconds: {{ .Values.php.healthProbes.livenessPeriod }}
           readinessProbe:
             httpGet:
               path: /health_php.php
               port: http
             initialDelaySeconds: {{ .Values.openresty.healthProbes.readinessDelay }}
+            periodSeconds: {{ .Values.openresty.healthProbes.readinessPeriod }}
           {{- end }}
           ports:
             - name: http
@@ -66,7 +68,7 @@ spec:
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.openresty.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}
     {{- end }}

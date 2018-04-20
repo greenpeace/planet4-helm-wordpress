@@ -42,7 +42,9 @@ php:
   healthProbes:
     enabled: true
     livenessDelay: 10
+    livenessPeriod: 10
     readinessDelay: 60
+    readinessPeriod: 10
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
