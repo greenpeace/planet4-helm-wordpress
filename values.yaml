@@ -32,8 +32,8 @@ dbDatabase: wordpress_db
 php:
   enabled: true
   image:
-    repository: gcr.io/planet4-gpi/p4-gpi-app
-    tag: latest
+    repository: gcr.io/planet-4-151612/planet4-app
+    tag: v0.6.1
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -67,8 +67,8 @@ php:
 
 openresty:
   image:
-    repository: gcr.io/planet4-gpi/p4-gpi-openresty
-    tag: latest
+    repository: gcr.io/planet-4-151612/planet4-openresty
+    tag: v0.6.1
     pullPolicy: IfNotPresent
   fastcgi:
     redis: true
@@ -102,13 +102,14 @@ openresty:
 exim:
   image:
     repository: gcr.io/planet-4-151612/exim
-    tag: latest
+    tag: v0.6.1
     pullPolicy: IfNotPresent
   replicaCount: 1
   service:
     port: 25
-  username:
-  password:
+  # username:
+  # password:
+
 
 newrelic:
   enabled: true
