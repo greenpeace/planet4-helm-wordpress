@@ -24,7 +24,6 @@ wp:
     # Pass in from environment
     serviceAccountKey:
 
-
 dbUsername: testing
 # Pass in from environment
 #dbPassword: testing
@@ -44,17 +43,25 @@ php:
     enabled: true
     livenessDelay: 10
     readinessDelay: 60
-
-newrelic:
-  enabled: true
-  appname: Planet 4 Wordpress
-  license:
-
-redis:
-  usePassword: false
-  persistence:
-    enabled: false
-  redisDisableCommands: ""
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: component
+            operator: In
+            values:
+            - php
+        topologyKey: "kubernetes.io/hostname"
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: component
+              operator: In
+              values:
+              - proxy
+        topologyKey: kubernetes.io/hostname
 
 openresty:
   image:
@@ -70,6 +77,25 @@ openresty:
     enabled: true
     livenessDelay: 10
     readinessDelay: 30
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: component
+          operator: In
+          values:
+          - proxy
+      topologyKey: "kubernetes.io/hostname"
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: component
+            operator: In
+            values:
+            - php
+        topologyKey: kubernetes.io/hostname
 
 exim:
   image:
@@ -84,7 +110,14 @@ exim:
 
 newrelic:
   enabled: true
-  # license: "newrelic license"
+  appname: Planet 4 Wordpress
+  # license:
+
+redis:
+  usePassword: false
+  persistence:
+    enabled: false
+  redisDisableCommands: ""
 
 ingress:
   enabled: true
@@ -201,5 +234,3 @@ resources: {}
 nodeSelector: {}
 
 tolerations: []
-
-affinity: {}

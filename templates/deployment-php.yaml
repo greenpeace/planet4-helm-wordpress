@@ -7,6 +7,7 @@ metadata:
     chart: {{ template "wordpress.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    component: php
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -18,6 +19,7 @@ spec:
       labels:
         app: {{ template "php.name" . }}
         release: {{ .Release.Name }}
+        component: php
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -120,12 +122,12 @@ spec:
             tcpSocket:
               port: {{ .Values.php.service.port }}
             initialDelaySeconds: {{ .Values.php.healthProbes.readinessDelay }}
-            periodSeconds: 10
+            periodSeconds: {{ .Values.php.healthProbes.readinessPeriod }}
           livenessProbe:
             tcpSocket:
               port: {{ .Values.php.service.port }}
             initialDelaySeconds: {{ .Values.php.healthProbes.livenessDelay }}
-            periodSeconds: 20
+            periodSeconds: {{ .Values.php.healthProbes.livenessPeriod }}
           {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
@@ -133,7 +135,7 @@ spec:
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.php.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}
     {{- end }}
