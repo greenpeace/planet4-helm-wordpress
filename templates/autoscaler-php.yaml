@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-php-autoscaler
+  labels:
+    app: {{ .Release.Name }}-wordpress
+    chart: {{ template "wordpress.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ template "php.fullname" . }}
+  minReplicas: {{ .Values.php.minReplicaCount }}
+  maxReplicas: {{ .Values.php.maxReplicaCount }}
+  targetCPUUtilizationPercentage: 60

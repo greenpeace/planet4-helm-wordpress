@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-openresty-autoscaler
+  labels:
+    app: {{ .Release.Name }}-wordpress
+    chart: {{ template "wordpress.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ template "openresty.fullname" . }}
+  minReplicas: {{ .Values.openresty.minReplicaCount }}
+  maxReplicas: {{ .Values.openresty.maxReplicaCount }}
+  targetCPUUtilizationPercentage: 60

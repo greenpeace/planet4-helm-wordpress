@@ -47,6 +47,8 @@ php:
     livenessPeriod: 10
     readinessDelay: 60
     readinessPeriod: 10
+  minReplicaCount: 1
+  maxReplicaCount: 5
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -83,6 +85,8 @@ openresty:
     livenessPeriod: 10
     readinessDelay: 30
     readinessPeriod: 10
+  minReplicaCount: 1
+  maxReplicaCount: 5    
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
