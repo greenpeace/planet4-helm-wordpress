@@ -2,8 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
 hostname: k8s.p4.greenpeace.org
 hostpath: ""
 
@@ -86,7 +84,7 @@ openresty:
     readinessDelay: 30
     readinessPeriod: 10
   minReplicaCount: 1
-  maxReplicaCount: 5    
+  maxReplicaCount: 5
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
