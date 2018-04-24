@@ -28,6 +28,8 @@ spec:
           env:
           - name: APP_HOSTNAME
             value: {{ .Values.hostname | quote }}
+          - name: APP_HOSTPATH
+            value: {{ .Values.hostpath | default "" | quote }}
           {{- if .Values.php.enabled }}
           - name: PHP_ENABLED
             value: "true"
