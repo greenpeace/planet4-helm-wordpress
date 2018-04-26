@@ -57,7 +57,7 @@ spec:
               value: {{ template "redis.fullname" . }}
             {{- end }}
 
-            - name: WP_STATELESS_ENABLED
+            - name: WP_STATELESS_MEDIA_ENABLED
               value: {{ .Values.wp.stateless.enabled | quote }}
             - name: WP_STATELESS_MEDIA_BUCKET
               value: {{ .Values.wp.stateless.bucket | quote }}
