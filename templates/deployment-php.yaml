@@ -31,7 +31,7 @@ spec:
             - name: WP_SITE_URL
               value: {{ .Values.wp.siteUrl }}
             - name: WP_SITE_HOME
-              value: {{ default .Values.wp.Siteurl .Values.wp.siteHome }}
+              value: {{ default .Values.wp.siteurl .Values.wp.siteHome }}
             - name: WP_SET_OPTIONS_ON_BOOT
               value: {{ .Values.wp.setOptionsOnBoot | quote }}
 
@@ -56,7 +56,7 @@ spec:
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
             {{- end }}
-            
+
             - name: WP_STATELESS_ENABLED
               value: {{ .Values.wp.stateless.enabled | quote }}
             - name: WP_STATELESS_MEDIA_BUCKET
