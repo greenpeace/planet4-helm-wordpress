@@ -9,7 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
     component: proxy
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.openresty.minReplicaCount }}
   selector:
     matchLabels:
       app: {{ template "openresty.name" . }}

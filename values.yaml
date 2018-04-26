@@ -17,7 +17,7 @@ wp:
   secureAuthKey: ""
   secureAuthSalt: ""
   setOptionsOnBoot: true
-  # siteHome: k8s.p4.greenpeace.org/international
+  siteHome: ""
   siteUrl: k8s.p4.greenpeace.org
   stateless:
     enabled: true

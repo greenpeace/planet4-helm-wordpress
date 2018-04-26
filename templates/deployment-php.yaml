@@ -9,7 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
     component: php
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.php.minReplicaCount }}
   selector:
     matchLabels:
       app: {{ template "php.name" . }}
@@ -29,9 +29,9 @@ spec:
             - name: APP_HOSTNAME
               value: {{ .Values.hostname | quote }}
             - name: WP_SITE_URL
-              value: {{ .Values.wp.siteUrl }}
+              value: {{ .Values.wp.siteUrl | quote }}
             - name: WP_SITE_HOME
-              value: {{ default .Values.wp.siteurl .Values.wp.siteHome }}
+              value: {{ .Values.wp.siteHome | default .Values.wp.siteurl | quote }}
             - name: WP_SET_OPTIONS_ON_BOOT
               value: {{ .Values.wp.setOptionsOnBoot | quote }}
 
@@ -52,7 +52,7 @@ spec:
 
             {{- if .Values.wp.redis.enabled }}
             - name: WP_REDIS_ENABLED
-              value: true
+              value: "true"
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
             {{- end }}
