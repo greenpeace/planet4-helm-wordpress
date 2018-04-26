@@ -50,9 +50,13 @@ spec:
             - name: PHP_MEMORY_LIMIT
               value: {{ .Values.php.memoryLimit | quote }}
 
+            {{- if .Values.wp.redis.enabled }}
+            - name: WP_REDIS_ENABLED
+              value: true
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}
-
+            {{- end }}
+            
             - name: WP_STATELESS_ENABLED
               value: {{ .Values.wp.stateless.enabled | quote }}
             - name: WP_STATELESS_MEDIA_BUCKET

@@ -12,6 +12,8 @@ wp:
   loggedInSalt: ""
   nonceKey: ""
   nonceSalt: ""
+  redis:
+    enabled: true
   secureAuthKey: ""
   secureAuthSalt: ""
   setOptionsOnBoot: true
