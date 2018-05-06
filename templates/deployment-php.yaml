@@ -139,10 +139,31 @@ spec:
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.php.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: release
+                operator: NotIn
+                values:
+                - {{ .Release.Name }}
+              - key: component
+                operator: NotIn
+                values:
+                - php
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: release
+                operator: In
+                values:
+                - {{ .Release.Name }}
+              - key: component
+                operator: In
+                values:
+                - proxy
     {{- with .Values.tolerations }}
       tolerations:
 {{ toYaml . | indent 8 }}

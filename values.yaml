@@ -49,25 +49,6 @@ php:
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: component
-            operator: In
-            values:
-            - php
-        topologyKey: "kubernetes.io/hostname"
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: component
-              operator: In
-              values:
-              - proxy
-        topologyKey: kubernetes.io/hostname
 
 openresty:
   image:
@@ -87,25 +68,6 @@ openresty:
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: component
-          operator: In
-          values:
-          - proxy
-      topologyKey: "kubernetes.io/hostname"
-    preferredDuringSchedulingIgnoredDuringExecution:
-    - weight: 100
-      podAffinityTerm:
-        labelSelector:
-          matchExpressions:
-          - key: component
-            operator: In
-            values:
-            - php
-        topologyKey: kubernetes.io/hostname
 
 exim:
   image:
