@@ -101,21 +101,45 @@ spec:
               value: {{ template "exim.fullname" . }}
 
             - name: WP_AUTH_KEY
-              value: {{ .Values.wp.authKey | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: authKey
             - name: WP_AUTH_SALT
-              value: {{ .Values.wp.authSalt | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: authSalt
             - name: WP_LOGGED_IN_KEY
-              value: {{ .Values.wp.loggedInKey | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: loggedInKey
             - name: WP_LOGGED_IN_SALT
-              value: {{ .Values.wp.loggedInSalt | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: loggedInSalt
             - name: WP_NONCE_KEY
-              value: {{ .Values.wp.nonceKey | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: nonceKey
             - name: WP_NONCE_SALT
-              value: {{ .Values.wp.nonceSalt | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: nonceSalt
             - name: WP_SECURE_AUTH_KEY
-              value: {{ .Values.wp.secureAuthKey | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: secureAuthKey
             - name: WP_SECURE_AUTH_SALT
-              value: {{ .Values.wp.secureAuthSalt | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: secureAuthSalt
 
           ports:
             - name: fastcgi
