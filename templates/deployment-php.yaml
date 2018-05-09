@@ -86,15 +86,21 @@ spec:
             {{- if .Values.sqlproxy.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-sqlproxy"
-            - name: MYSQL_USER
-              value: {{ .Values.dbUsername | quote }}
             - name: MYSQL_DATABASE
-              value: {{ .Values.dbDatabase | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-db"
+                  key: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-db"
+                  key: username
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-db"
-                  key: db-password
+                  key: password
             {{- end }}
 
             - name: SSMTP_MAIL_RELAY
