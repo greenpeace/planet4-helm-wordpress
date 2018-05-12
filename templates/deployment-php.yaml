@@ -87,10 +87,7 @@ spec:
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-sqlproxy"
             - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-db"
-                  key: database
+              value: "{{ .Values.dbDatabase }}"
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
