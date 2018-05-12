@@ -4,12 +4,11 @@ Containers:
 - {{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}
 
 {{- if .Values.sqlproxy.enabled }}
+
 CloudSQL:
-{{- range .Values.sqlproxy.cloudsql.instances }}
-- {{ $.Values.project }}:{{ $.Values.region }}:{{ $.Values.instance }}
-  User:     {{ .Values.dbUsername }}
-  Database: {{ .Values.dbDatabase }}
-{{- end }}
+User:     {{ .Values.dbUsername | b64dec }}
+Database: {{ .Values.dbDatabase }}
+
 {{- end }}
 
 {{- if .Values.ingress.enabled }}
@@ -18,4 +17,5 @@ Frontend:
 
 Backend:
 - https://{{ .Values.hostname }}/{{ .Values.hostpath | default "" }}/admin
+
 {{- end }}
