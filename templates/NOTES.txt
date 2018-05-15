@@ -12,6 +12,7 @@ Database: {{ .Values.dbDatabase }}
 {{- end }}
 
 {{- if .Values.ingress.enabled }}
+
 Frontend:
 - https://{{ .Values.hostname }}/{{ .Values.hostpath | default "" }}
 
