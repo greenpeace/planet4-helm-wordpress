@@ -10,6 +10,12 @@ metadata:
     component: php
 spec:
   replicas: {{ .Values.php.minReplicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 15
   selector:
     matchLabels:
       app: {{ template "php.name" . }}

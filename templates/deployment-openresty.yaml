@@ -10,6 +10,12 @@ metadata:
     component: proxy
 spec:
   replicas: {{ .Values.openresty.minReplicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
   selector:
     matchLabels:
       app: {{ template "openresty.name" . }}
