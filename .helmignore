@@ -20,3 +20,4 @@
 .idea/
 *.tmproj
 values-local.yaml
+secrets/
