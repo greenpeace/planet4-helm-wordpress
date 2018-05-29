@@ -25,23 +25,18 @@ helm upgrade --install p4-gpi \
 
 ---
 
-## Updating repository with new version
+## Updating repository with new chart version
 
 ```
-# Clone remote repository
-gsutil rsync -d gs://p4-helm-charts planet4-helm-charts
-
-# Craft new chart version
-helm package .
-
-# Move to local repo copy
-mv p4-chart-name planet4-helm-charts
-
-# Update local repository
-helm repo index planet4-helm-charts --url https://p4-helm-charts.storage.googleapis.com
-
-# Update GS bucket with new repository data
-gsutil rsync -d planet4-helm-charts gs://p4-helm-charts
+make
 ```
+
+The simple command `make` will:
+-   Create a directory (../planet4-helm-charts by default) to store chart bucket contents
+-   Pull contents of P4 Helm GCS bucket
+-   Package the current directory as a new chart version
+-   Move the packaged chart to the local chart directory
+-   Update the index
+-   Synchronise local chart directory with GCS bucket contents
 
 For managing repository updates it is strongly recommended to use https://github.com/viglesiasce/helm-gcs
