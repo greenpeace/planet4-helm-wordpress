@@ -21,3 +21,4 @@
 *.tmproj
 values-local.yaml
 secrets/
+Makefile
