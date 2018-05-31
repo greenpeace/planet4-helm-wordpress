@@ -59,7 +59,7 @@ spec:
               containerPort: {{ .Values.exim.service.port }}
               protocol: TCP
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+{{ toYaml .Values.exim.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}

@@ -167,7 +167,7 @@ spec:
             periodSeconds: {{ .Values.php.healthProbes.livenessPeriod }}
           {{- end }}
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+{{ toYaml .Values.php.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}

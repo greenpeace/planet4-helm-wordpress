@@ -49,6 +49,13 @@ php:
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"
 
 openresty:
   image:
@@ -68,6 +75,13 @@ openresty:
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
 
 exim:
   image:
@@ -77,6 +91,13 @@ exim:
   replicaCount: 1
   service:
     port: 25
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "100m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
   # username:
   # password:
 
