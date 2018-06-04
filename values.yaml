@@ -55,9 +55,9 @@ php:
   resources:
     requests:
       memory: "256Mi"
-      cpu: "250m"
+      cpu: "100m"
     limits:
-      memory: "512Mi"
+      memory: "768Mi"
       cpu: "1000m"
 
 openresty:
@@ -81,7 +81,7 @@ openresty:
   resources:
     requests:
       memory: "64Mi"
-      cpu: "250m"
+      cpu: "100m"
     limits:
       memory: "256Mi"
       cpu: "500m"
