@@ -5,6 +5,9 @@
 hostname: k8s.p4.greenpeace.org
 hostpath: ""
 
+hostnameProduction: www.greenpeace.org
+hostpathProduction: ""
+
 wp:
   authKey: ""
   authSalt: ""
@@ -121,6 +124,12 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+ingressProduction:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  tls: []
 
 fastcgi:
   backend: false
