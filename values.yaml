@@ -38,7 +38,7 @@ php:
   enabled: true
   image:
     repository: gcr.io/planet-4-151612/planet4-base-app
-    tag: v0.8.0
+    tag: v0.9.3
     pullPolicy: Always
   service:
     type: ClusterIP
@@ -63,7 +63,7 @@ php:
 openresty:
   image:
     repository: gcr.io/planet-4-151612/planet4-base-openresty
-    tag: v0.8.0
+    tag: v0.9.3
     pullPolicy: Always
   fastcgi:
     redis: true
@@ -89,7 +89,7 @@ openresty:
 exim:
   image:
     repository: gcr.io/planet-4-151612/exim
-    tag: v0.8.0
+    tag: v0.9.3
     pullPolicy: IfNotPresent
   replicaCount: 1
   service:
