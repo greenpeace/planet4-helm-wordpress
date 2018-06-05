@@ -34,6 +34,8 @@ spec:
           env:
             - name: APP_HOSTNAME
               value: {{ .Values.hostname | quote }}
+            - name: APP_HOSTPATH
+              value: {{ .Values.hostpath | quote }}
             - name: WP_SITE_URL
               value: {{ .Values.wp.siteUrl | quote }}
             - name: WP_SITE_HOME
