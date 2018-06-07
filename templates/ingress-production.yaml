@@ -1,4 +1,4 @@
-{{- if .Values.ingressProduction.enabled -}}
+{{- if (.Values.ingressProduction.enabled) and (eq .Values.environment "production") -}}
 {{- $fullName := include "openresty.fullname" . -}}
 {{- $servicePort := .Values.openresty.service.port -}}
 apiVersion: extensions/v1beta1
