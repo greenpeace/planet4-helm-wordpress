@@ -26,6 +26,8 @@ spec:
           image: "{{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}"
           imagePullPolicy: {{ .Values.exim.image.pullPolicy }}
           env:
+          - name: APP_HOSTNAME
+            value: {{ .Values.hostname | quote }}
           - name: EXIM_SMARTHOST
             value: {{ .Values.exim.smarthost | quote }}
           - name: EXIM_MAIL_FROM
