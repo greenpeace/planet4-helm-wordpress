@@ -42,8 +42,12 @@ spec:
           - name: OPENRESTY_FASTCGI_BACKEND
             value: "{{ template "php.fullname" . }}:9000"
           {{- end }}
+
           - name: PAGESPEED_ENABLED
             value: {{ .Values.pagespeed.enabled | quote }}
+          - name: PAGESPEED_REDIS_SERVER
+            value: "{{ template "redis.fullname" . }}:6379"
+
           - name: REDIS_FASTCGI_CACHE_ENABLED
           {{- if .Values.fastcgi.redis.enabled }}
             value: "true"
