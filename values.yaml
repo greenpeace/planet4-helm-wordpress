@@ -7,7 +7,7 @@ environment: production
 hostname: k8s.p4.greenpeace.org
 hostpath: ""
 
-hostnameProduction: master.k8s.p4.greenpeace.org
+hostnameProduction: www.greenpeace.org
 hostpathProduction: ""
 
 wp:
