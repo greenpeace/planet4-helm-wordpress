@@ -40,7 +40,7 @@ php:
   enabled: true
   image:
     repository: gcr.io/planet-4-151612/planet4-base-app
-    tag: v0.9.5
+    tag: v0.9.6
     pullPolicy: Always
   service:
     type: ClusterIP
@@ -65,7 +65,7 @@ php:
 openresty:
   image:
     repository: gcr.io/planet-4-151612/planet4-base-openresty
-    tag: v0.9.5
+    tag: v0.9.6
     pullPolicy: Always
   fastcgi:
     redis: true
@@ -93,7 +93,7 @@ exim:
   mailFrom: "greenpeace.org"
   image:
     repository: gcr.io/planet-4-151612/exim
-    tag: v0.9.5
+    tag: v0.9.6
     pullPolicy: IfNotPresent
   replicaCount: 1
   service:
