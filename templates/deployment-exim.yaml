@@ -28,22 +28,29 @@ spec:
           env:
           - name: APP_HOSTNAME
             value: {{ .Values.hostname | quote }}
+
           - name: EXIM_SMARTHOST
             value: {{ .Values.exim.smarthost | quote }}
+
           - name: EXIM_MAIL_FROM
             value: {{ .Values.exim.mailFrom | quote }}
-          {{- if and .Values.exim.password .Values.exim.password -}}
+
+          {{ if .Values.exim.password }}
           - name: EXIM_SMARTHOST_AUTH_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: "{{ .Release.Name }}-exim"
                 key: password
+          {{ end }}
+
+          {{ if .Values.exim.username }}
           - name: EXIM_SMARTHOST_AUTH_USERNAME
             valueFrom:
               secretKeyRef:
                 name: "{{ .Release.Name }}-exim"
                 key: username
-          {{- end }}
+          {{ end }}
+
           {{- if .Values.exim.healthProbes }}
           readinessProbe:
             tcpSocket:
