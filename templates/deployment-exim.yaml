@@ -20,6 +20,7 @@ spec:
         app: {{ template "exim.name" . }}
         release: {{ .Release.Name }}
         component: mail
+        environment: {{ .Values.environment }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

@@ -26,6 +26,7 @@ spec:
         app: {{ template "openresty.name" . }}
         release: {{ .Release.Name }}
         component: proxy
+        environment: {{ .Values.environment }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

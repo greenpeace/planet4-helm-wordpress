@@ -26,6 +26,7 @@ spec:
         app: {{ template "php.name" . }}
         release: {{ .Release.Name }}
         component: php
+        environment: {{ .Values.environment }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
