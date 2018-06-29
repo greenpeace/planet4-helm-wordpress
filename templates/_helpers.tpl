@@ -79,15 +79,6 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name "exim" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-<!-- {{/*
-Create a default fully qualified database hostname.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "mariadb.fullname" -}}
-{{- $chartname := default .Chart.Name .Values.nameOverride -}}
-{{- printf "%s-%s-mariadb" .Release.Name $chartname | trunc 63 | trimSuffix "-" -}}
-{{- end -}} -->
-
 {{/*
 Create a default fully qualified redis hostname.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).

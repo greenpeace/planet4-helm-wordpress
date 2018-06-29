@@ -108,7 +108,6 @@ exim:
   # username:
   # password:
 
-
 newrelic:
   enabled: true
   appname: Planet 4 Wordpress
@@ -153,75 +152,6 @@ sqlproxy:
       #  project: gcp-project
       #  region: us-central1
       #  port: 3306
-
-  ## Base64 encoded service account json
-  ## Use --set sqlproxy.serviceAccountKey="$(cat service-account.json | base64 -w 0)"
-  #serviceAccountKey: "testing"
-
-
-##
-## MariaDB chart configuration
-##
-mariadb:
-  ## Whether to use the database specified as a requirement or not.
-  ## If you want to use an internal database set this to true and supply details to externalDatabase above
-  enabled: false
-
-  ## MariaDB admin password
-  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
-  ##
-  # mariadbRootPassword:
-
-  ## Create a database
-  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-on-first-run
-  ##
-  mariadbDatabase: planet4_dev
-
-  ## Create a database user
-  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
-  ##
-  mariadbUser: planet4
-
-  ## Password for mariadbUser
-  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
-  ##
-  # mariadbPassword: "mariadb password"
-
-  ## Enable persistence using Persistent Volume Claims
-  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-  ##
-  persistence:
-    enabled: false
-    ## mariadb data Persistent Volume Storage Class
-    ## If defined, storageClassName: <storageClass>
-    ## If set to "-", storageClassName: "", which disables dynamic provisioning
-    ## If undefined (the default) or set to null, no storageClassName spec is
-    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-    ##   GKE, AWS & OpenStack)
-    ##
-    # storageClass: "-"
-    accessMode: ReadWriteOnce
-    size: 8Gi
-
-externalDatabase:
-## All of these values are only used when mariadb.enabled is set to false
-  ## Database host
-  host: localhost
-
-  ## Database Root User (so wordpress can create the db schema etc)
-  # rootPassword:
-
-  ## non-root Username for Wordpress Database
-  user: bn_wordpress
-
-  ## Database password
-  # password:
-
-  ## Database name
-  database: bitnami_wordpress
-
-  ## Database port number
-  port: 3306
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

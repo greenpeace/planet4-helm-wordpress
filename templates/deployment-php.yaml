@@ -78,20 +78,6 @@ spec:
                   name: "{{ .Release.Name }}-stateless"
                   key: credentials.json
 
-            {{- if .Values.mariadb.enabled }}
-            - name: WP_DB_HOST
-              value: "{{ .Release.Name }}-mariadb-mariadb"
-            - name: MYSQL_USER
-              value: {{ .Values.mariadb.mariadbUser | quote }}
-            - name: MYSQL_DATABASE
-              value: {{ .Values.mariadb.mariadbDatabase | quote }}
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-mariadb-mariadb"
-                  key: mariadb-password
-            {{- end }}
-
             {{- if .Values.sqlproxy.enabled }}
             - name: WP_DB_HOST
               value: "{{ .Release.Name }}-sqlproxy"
