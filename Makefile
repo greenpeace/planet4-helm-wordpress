@@ -25,6 +25,10 @@ package:
 	@helm package .
 	@mv wordpress-*.tgz $(CHART_DIRECTORY)
 
+.PHONY: verify
+verify:
+	@helm verify $(CHART_DIRECTORY)
+
 .PHONY: index
 index:
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
