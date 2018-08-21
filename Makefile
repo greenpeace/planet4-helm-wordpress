@@ -7,7 +7,11 @@ CHART_BUCKET ?= gs://p4-helm-charts
 CHART_URL ?= https://p4-helm-charts.storage.googleapis.com
 
 .PHONY: all
-all: pull package index push
+all: lint pull package index push
+
+.PHONY: lint
+lint:
+	@helm lint .
 
 .PHONY: pull
 pull:
@@ -31,4 +35,4 @@ index:
 push:
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
 	gsutil -m rsync -d . gs://p4-helm-charts && \
-	popd > /dev/null 
+	popd > /dev/null
