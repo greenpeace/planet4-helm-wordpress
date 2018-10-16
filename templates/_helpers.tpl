@@ -72,7 +72,7 @@ Expand the name of the chart and service
 {{- end -}}
 
 {{/*
-Create a default fully qualified redis hostname.
+Create a default fully qualified exim hostname.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "exim.fullname" -}}
