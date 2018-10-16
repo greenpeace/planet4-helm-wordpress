@@ -114,10 +114,41 @@ newrelic:
   # license:
 
 redis:
+  cluster:
+    enabled: false
+    slaveCount: 3
   usePassword: false
   persistence:
     enabled: false
-  redisDisableCommands: ""
+  # Disabled as Helm chart does not work when configmap defined
+  # https://github.com/helm/charts/issues/7770
+  # configmap: |-
+  #   maxmemory 200mb
+  #   maxmemory-policy volatile-lfu
+  master:
+    persistence:
+      enabled: false
+    disableCommands: ""
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 10m
+      # Disabled until redis maxmemory is able to be defined in config
+      # limits:
+      #   memory: 512Mi
+      #   cpu: 150m
+  slave:
+    persistence:
+      enabled: false
+    disableCommands: ""
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 10m
+      # Disabled until redis maxmemory is able to be defined in config
+      # limits:
+      #   memory: 512Mi
+      #   cpu: 150m
 
 ingress:
   enabled: true

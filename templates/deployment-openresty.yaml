@@ -49,13 +49,13 @@ spec:
           - name: PAGESPEED_ENABLED
             value: {{ .Values.pagespeed.enabled | quote }}
           - name: PAGESPEED_REDIS_SERVER
-            value: "{{ template "redis.fullname" . }}:6379"
+            value: "{{ template "redis.fullname" . }}-master:6379"
 
           - name: REDIS_FASTCGI_CACHE_ENABLED
           {{- if .Values.fastcgi.redis.enabled }}
             value: "true"
           - name: REDIS_FASTCGI_CACHE_SERVER
-            value: "{{ template "redis.fullname" . }}:6379"
+            value: "{{ template "redis.fullname" . }}-master:6379"
           {{- else }}
             value: "false"
           {{- end }}

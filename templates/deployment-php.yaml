@@ -65,7 +65,7 @@ spec:
             - name: WP_REDIS_ENABLED
               value: "true"
             - name: WP_REDIS_HOST
-              value: {{ template "redis.fullname" . }}
+              value: {{ template "redis.fullname" . }}-master
             {{- end }}
 
             - name: WP_STATELESS_MEDIA_ENABLED
