@@ -177,6 +177,13 @@ pagespeed:
 
 sqlproxy:
   enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      memory: 150Mi
+      cpu: 150m
   cloudsql:
     instances:
       #- instance: db-instance-name
