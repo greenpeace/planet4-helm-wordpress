@@ -45,7 +45,7 @@ php:
   service:
     type: ClusterIP
     port: 9000
-  memoryLimit: 192M
+  memoryLimit: 384M
   healthProbes:
     enabled: true
     livenessDelay: 10
