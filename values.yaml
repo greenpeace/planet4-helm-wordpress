@@ -50,7 +50,7 @@ php:
     enabled: true
     livenessDelay: 10
     livenessPeriod: 10
-    readinessDelay: 60
+    readinessDelay: 10
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
@@ -76,7 +76,7 @@ openresty:
     enabled: true
     livenessDelay: 10
     livenessPeriod: 10
-    readinessDelay: 30
+    readinessDelay: 10
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
