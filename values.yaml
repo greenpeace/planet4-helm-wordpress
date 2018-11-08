@@ -60,7 +60,7 @@ php:
       cpu: "10m"
     limits:
       memory: "768Mi"
-      cpu: "1000m"
+      cpu: "2"
 
 openresty:
   image:
@@ -86,7 +86,7 @@ openresty:
       cpu: "10m"
     limits:
       memory: "256Mi"
-      cpu: "500m"
+      cpu: "2"
 
 exim:
   smarthost: "smtp.sendgrid.net::2525"
