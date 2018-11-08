@@ -166,7 +166,7 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
+          - weight: 2
             preference:
               matchExpressions:
               - key: release
