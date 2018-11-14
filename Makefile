@@ -13,6 +13,10 @@ all: lint pull package index push
 lint:
 	@helm lint .
 
+.PHONY: dep
+dep: lint
+	@helm dependency update
+
 .PHONY: pull
 pull:
 	@mkdir -p $(CHART_DIRECTORY)
@@ -21,16 +25,16 @@ pull:
 	popd > /dev/null
 
 .PHONY: package
-package:
+package: lint
 	@helm package .
 	@mv wordpress-*.tgz $(CHART_DIRECTORY)
 
 .PHONY: verify
-verify:
+verify: lint
 	@helm verify $(CHART_DIRECTORY)
 
 .PHONY: index
-index:
+index: lint verify
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
 	helm repo index . --url $(CHART_URL) && \
 	popd > /dev/null
