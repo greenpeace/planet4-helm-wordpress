@@ -34,7 +34,7 @@ verify: lint
 	@helm verify $(CHART_DIRECTORY)
 
 .PHONY: index
-index: lint verify
+index: lint
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
 	helm repo index . --url $(CHART_URL) && \
 	popd > /dev/null
