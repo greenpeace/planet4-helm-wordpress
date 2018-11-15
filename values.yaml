@@ -119,7 +119,7 @@ redis:
     slaveCount: 3
   usePassword: false
   persistence:
-    enabled: true
+    enabled: false
   # Disabled as Helm chart does not work when configmap defined
   # https://github.com/helm/charts/issues/7770
   # configmap: |-
