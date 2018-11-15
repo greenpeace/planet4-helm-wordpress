@@ -3,8 +3,8 @@ SHELL := /bin/bash
 
 CHART_DIRECTORY ?= ../planet4-helm-charts
 
-CHART_BUCKET ?= gs://p4-helm-charts
-CHART_URL ?= https://p4-helm-charts.storage.googleapis.com
+CHART_BUCKET ?= gs://planet4-helm-charts
+CHART_URL ?= https://planet4-helm-charts.storage.googleapis.com
 
 .PHONY: all
 all: lint pull package index push
@@ -42,5 +42,5 @@ index: lint verify
 .PHONY: push
 push:
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
-	gsutil -m rsync -d . gs://p4-helm-charts && \
+	gsutil -m rsync -d . $(CHART_BUCKET) && \
 	popd > /dev/null
