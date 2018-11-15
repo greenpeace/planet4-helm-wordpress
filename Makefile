@@ -7,7 +7,7 @@ CHART_BUCKET ?= gs://planet4-helm-charts
 CHART_URL ?= https://planet4-helm-charts.storage.googleapis.com
 
 .PHONY: all
-all: lint pull package index push
+all: lint pull dep package index push
 
 .PHONY: lint
 lint:
