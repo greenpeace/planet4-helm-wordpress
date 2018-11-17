@@ -4,7 +4,7 @@
 
 Builds on [https://github.com/greenpeace/planet4-docker]() and [https://github.com/greenpeace/planet4-base]()
 
-Charts stored in GS bucket gs://p4-helm-charts
+Charts stored in GS bucket gs://planet4-helm-charts
 
 ---
 
