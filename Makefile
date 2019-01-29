@@ -12,7 +12,15 @@ CHART_NAME := $(shell basename "$(PWD)")
 all: lint pull dep package index push
 
 .PHONY: lint
-lint:
+lint: lint-yaml lint-helm
+
+.PHONY: lint-yaml
+lint-yaml:
+	yamllint .circleci/config.yaml
+	yamllint values.yaml
+	yamllint requirements.yaml
+
+.PHONY: lint-helm
 	@helm lint .
 
 .PHONY: dep
