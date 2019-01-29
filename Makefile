@@ -6,6 +6,8 @@ CHART_DIRECTORY ?= ../planet4-helm-charts
 CHART_BUCKET ?= gs://planet4-helm-charts
 CHART_URL ?= https://planet4-helm-charts.storage.googleapis.com
 
+CHART_NAME := $(shell basename "$(PWD)")
+
 .PHONY: all
 all: lint pull dep package index push
 
@@ -27,7 +29,7 @@ pull:
 .PHONY: package
 package: lint
 	@helm package .
-	@mv wordpress-*.tgz $(CHART_DIRECTORY)
+	@mv $(CHART_NAME)-*.tgz $(CHART_DIRECTORY)
 
 .PHONY: verify
 verify: lint
