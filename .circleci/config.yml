@@ -34,15 +34,15 @@ jobs:
           command: |
             new_version="$(git-new-version.sh)"
             echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
+            set -x
             release-start.sh $new_version
-            git branch
-            BUILD_TAG="${new_version#v}" make rewrite
+            BUILD_TAG="${new_version#v}" make clean rewrite
+            git status
             git add -f Chart.yaml
             git add -f requirements.yaml
             git commit -m ":robot: Build artifacts ${new_version}"
-            git log -3
+            git log -1
             release-finish.sh $new_version
-            git log -3
       - run:
           name: Notify failure
           when: on_fail
