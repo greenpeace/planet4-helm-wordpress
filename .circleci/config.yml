@@ -19,10 +19,10 @@ jobs:
           name: Notify failure
           when: on_fail
           command: TYPE="Lint" notify-job-failure.sh
-  notify:
-    <<: *defaults
-    steps:
-      - run: TYPE="@rawalker Promotion" notify-job-hold.sh
+  # notify:
+  #   <<: *defaults
+  #   steps:
+  #     - run: TYPE="@rawalker Promotion" notify-job-hold.sh
   release:
     <<: *defaults
     steps:
@@ -66,24 +66,25 @@ workflows:
           filters:
             branches:
               ignore: master
-      - hold:
-          type: approval
-          requires:
-            - lint
-          filters:
-            branches:
-              only: develop
-      - notify:
-          context: org-global
-          requires:
-            - lint
-          filters:
-            branches:
-              only: develop
+      # - hold:
+      #     type: approval
+      #     requires:
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only: develop
+      # - notify:
+      #     context: org-global
+      #     requires:
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only: develop
       - release:
           context: org-global
           requires:
-            - hold
+            # - hold
+            - lint
           filters:
             branches:
               only: develop
