@@ -22,3 +22,4 @@
 values-local.yaml
 secrets/
 Makefile
+*.in

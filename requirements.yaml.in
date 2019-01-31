@@ -1,0 +1,10 @@
+---
+dependencies:
+  - name: redis
+    version: ${REDIS_CHART_VERSION}
+    repository: "@stable"
+  - name: gcloud-sqlproxy
+    version: ${GCLOUD_CHART_VERSION}
+    repository: "@stable"
+    condition: cloudsql.enabled
+    alias: sqlproxy
