@@ -39,7 +39,9 @@ jobs:
             git add -f Chart.yaml
             git add -f requirements.yaml
             git commit -m ":robot: Build artifacts ${new_version}"
+            git log -3
             release-finish.sh $new_version
+            git log -3
       - run:
           name: Notify failure
           when: on_fail
