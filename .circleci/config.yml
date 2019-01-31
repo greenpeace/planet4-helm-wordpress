@@ -36,9 +36,9 @@ jobs:
             echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
             release-start.sh $new_version
             BUILD_TAG="${new_version#v}" make rewrite
-            git add Chart.yaml
-            git add requirements.yaml
-            git commit ":robot: Build artifacts ${new_version}"
+            git add -f Chart.yaml
+            git add -f requirements.yaml
+            git commit -m ":robot: Build artifacts ${new_version}"
             echo "Exiting early for debug"
             exit 1
 
