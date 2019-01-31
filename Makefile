@@ -11,6 +11,25 @@ CHART_URL ?= https://planet4-helm-charts.storage.googleapis.com
 
 CHART_NAME := $(shell basename "$(PWD)")
 
+SED_MATCH := [^a-zA-Z0-9._-]
+
+# If BUILD_TAG is not set
+ifeq ($(strip $(BUILD_TAG)),)
+ifeq ($(CIRCLECI),true)
+# Configure build variables based on CircleCI environment vars
+BUILD_TAG ?= $(shell sed 's/$(SED_MATCH)/-/g' <<< "$(CIRCLE_TAG)")
+else
+# Not in CircleCI environment, try to set sane defaults
+BUILD_TAG ?= $(shell git tag -l --points-at HEAD | tail -n1 | sed 's/$(SED_MATCH)/-/g')
+endif
+endif
+
+# If BUILD_TAG is blank there's no tag on this commit
+ifeq ($(strip $(BUILD_TAG)),)
+# Default to branch name - this will lint but not package
+BUILD_TAG := testing
+endif
+
 .PHONY: all
 all: lint pull dep package index push
 
