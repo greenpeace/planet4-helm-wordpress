@@ -31,7 +31,7 @@ BUILD_TAG := testing
 endif
 
 .PHONY: all
-all: lint pull dep package index push
+all: pull dep rewrite lint package index push
 
 .PHONY: clean
 clean:
@@ -41,8 +41,9 @@ clean:
 lint: lint-yaml lint-helm
 
 .PHONY: lint-yaml
-lint-yaml:
+lint-yaml: Chart.yaml requirements.yaml
 	yamllint .circleci/config.yaml
+	yamllint Chart.yaml
 	yamllint values.yaml
 	yamllint requirements.yaml
 
@@ -73,7 +74,7 @@ requirements.yaml:
 	envsubst < requirements.yaml.in > requirements.yaml
 
 .PHONY: package
-package: lint
+package: lint Chart.yaml
 	@helm package .
 	@mv $(CHART_NAME)-*.tgz $(CHART_DIRECTORY)
 
