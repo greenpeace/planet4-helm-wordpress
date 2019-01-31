@@ -90,7 +90,7 @@ index: lint
 	popd > /dev/null
 
 .PHONY: push
-push:
+push: package
 	@pushd $(CHART_DIRECTORY) > /dev/null && \
 	gsutil -m rsync -d . $(CHART_BUCKET) && \
 	popd > /dev/null
