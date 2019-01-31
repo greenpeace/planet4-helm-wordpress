@@ -1,9 +1,0 @@
-dependencies:
-  - name: redis
-    version: 4.2.7
-    repository: "@stable"
-  - name: gcloud-sqlproxy
-    version: 0.6.0
-    repository: "@stable"
-    condition: cloudsql.enabled
-    alias: sqlproxy
