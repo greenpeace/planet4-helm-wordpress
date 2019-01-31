@@ -69,21 +69,21 @@ workflows:
       - hold:
           type: approval
           requires:
-            - build-push
+            - lint
           filters:
             branches:
               only: develop
       - notify:
           context: org-global
           requires:
-            - build-push
+            - lint
           filters:
             branches:
               only: develop
       - release:
           context: org-global
           requires:
-            - hold-promote
+            - hold
           filters:
             branches:
               only: develop
