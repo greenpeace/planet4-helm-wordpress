@@ -1,0 +1,97 @@
+---
+defaults: &defaults
+  environment:
+    GOOGLE_PROJECT_ID: planet-4-151612
+  docker:
+    - image: gcr.io/planet-4-151612/circleci-base:latest
+  working_directory: /home/circleci/wordpress
+
+version: 2
+
+jobs:
+  lint:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run: make lint
+      - run:
+          name: Notify failure
+          when: on_fail
+          command: TYPE="Lint" notify-job-failure.sh
+  # notify:
+  #   <<: *defaults
+  #   steps:
+  #     - run: TYPE="@rawalker Promotion" notify-job-hold.sh
+  release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
+      - run:
+          name: Release
+          command: |
+            new_version="$(git-new-version.sh)"
+            echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
+            release-start.sh $new_version
+            BUILD_TAG="${new_version#v}" make rewrite
+            git add -f Chart.yaml
+            git add -f requirements.yaml
+            git commit -m ":robot: Build artifacts ${new_version}"
+            release-finish.sh $new_version
+      - run:
+          name: Notify failure
+          when: on_fail
+          command: TYPE="Release" notify-job-failure.sh
+  package:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: BUILD_TAG=${CIRCLE_TAG#v} make
+      - run:
+          name: Notify failure
+          when: on_fail
+          command: TYPE="Package" notify-job-failure.sh
+
+workflows:
+  version: 2
+  branch:
+    jobs:
+      - lint:
+          context: org-global
+          filters:
+            branches:
+              ignore: master
+      # - hold:
+      #     type: approval
+      #     requires:
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only: develop
+      # - notify:
+      #     context: org-global
+      #     requires:
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only: develop
+      - release:
+          context: org-global
+          requires:
+            # - hold
+            - lint
+          filters:
+            branches:
+              only: develop
+
+  tag:
+    jobs:
+      - package:
+          context: org-global
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

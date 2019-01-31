@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-.ONESHELL:
 
 GCLOUD_CHART_VERSION ?= 0.6.0
 REDIS_CHART_VERSION ?= 4.2.7
@@ -42,7 +41,7 @@ lint: lint-yaml lint-helm
 
 .PHONY: lint-yaml
 lint-yaml: Chart.yaml requirements.yaml
-	yamllint .circleci/config.yaml
+	yamllint .circleci/config.yml
 	yamllint Chart.yaml
 	yamllint values.yaml
 	yamllint requirements.yaml
