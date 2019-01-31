@@ -69,25 +69,24 @@ workflows:
           filters:
             branches:
               ignore: master
-      # - hold:
-      #     type: approval
-      #     requires:
-      #       - lint
-      #     filters:
-      #       branches:
-      #         only: develop
-      # - notify:
-      #     context: org-global
-      #     requires:
-      #       - lint
-      #     filters:
-      #       branches:
-      #         only: develop
+      - hold:
+          type: approval
+          requires:
+            - lint
+          filters:
+            branches:
+              only: develop
+      - notify:
+          context: org-global
+          requires:
+            - lint
+          filters:
+            branches:
+              only: develop
       - release:
           context: org-global
           requires:
-            # - hold
-            - lint
+            - hold
           filters:
             branches:
               only: develop
