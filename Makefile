@@ -56,6 +56,18 @@ pull:
 	gsutil -m rsync -d $(CHART_BUCKET) . && \
 	popd > /dev/null
 
+.PHONY: rewrite rewrite-chart rewrite-requirements
+rewrite: Chart.yaml requirements.yaml
+
+Chart.yaml:
+	BUILD_TAG=$(BUILD_TAG) \
+	envsubst < Chart.yaml.in > Chart.yaml
+
+requirements.yaml:
+	GCLOUD_CHART_VERSION=$(GCLOUD_CHART_VERSION) \
+	REDIS_CHART_VERSION=$(REDIS_CHART_VERSION) \
+	envsubst < requirements.yaml.in > requirements.yaml
+
 .PHONY: package
 package: lint
 	@helm package .
