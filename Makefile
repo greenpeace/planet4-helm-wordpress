@@ -1,6 +1,9 @@
 SHELL := /bin/bash
 .ONESHELL:
 
+GCLOUD_CHART_VERSION ?= 0.6.0
+REDIS_CHART_VERSION ?= 4.2.7
+
 CHART_DIRECTORY ?= ../planet4-helm-charts
 
 CHART_BUCKET ?= gs://planet4-helm-charts
