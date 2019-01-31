@@ -48,6 +48,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run: helm init --client-only
+      - run: activate-gcloud-account.sh
       - run: BUILD_TAG=${CIRCLE_TAG#v} make
       - run:
           name: Notify failure
