@@ -39,7 +39,9 @@ jobs:
             git add Chart.yaml
             git add requirements.yaml
             git commit ":robot: Build artifacts ${new_version}"
+            echo "Exiting early for debug"
             exit 1
+
             release-finish.sh $new_version
       - run:
           name: Notify failure
