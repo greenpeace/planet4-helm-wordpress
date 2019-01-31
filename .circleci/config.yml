@@ -35,6 +35,7 @@ jobs:
             new_version="$(git-new-version.sh)"
             echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
             release-start.sh $new_version
+            git branch
             BUILD_TAG="${new_version#v}" make rewrite
             git add -f Chart.yaml
             git add -f requirements.yaml
