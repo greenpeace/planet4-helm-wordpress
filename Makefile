@@ -74,7 +74,10 @@ requirements.yaml:
 
 .PHONY: package
 package: lint Chart.yaml
-	[[ $(BUILD_TAG) =~ ^[0-9]+\.[0-9]+ ]] || { $(error "ERROR: Refusing to package non-semver release: '$(BUILD_TAG)'") }
+	[[ $(BUILD_TAG) =~ ^[0-9]+\.[0-9]+ ]] || { \
+		>&2 echo "ERROR: Refusing to package non-semver release: '$(BUILD_TAG)'"; \
+		exit 1; \
+	}
 	@helm package .
 	@mv $(CHART_NAME)-*.tgz $(CHART_DIRECTORY)
 
