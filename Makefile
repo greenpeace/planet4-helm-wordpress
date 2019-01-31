@@ -33,6 +33,10 @@ endif
 .PHONY: all
 all: lint pull dep package index push
 
+.PHONY: clean
+clean:
+	rm -f Chart.yaml requirements.yaml
+
 .PHONY: lint
 lint: lint-yaml lint-helm
 
