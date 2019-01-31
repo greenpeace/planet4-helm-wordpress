@@ -35,13 +35,14 @@ jobs:
             new_version="$(git-new-version.sh)"
             echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
             set -x
-            release-start.sh $new_version
             BUILD_TAG="${new_version#v}" make clean rewrite
-            git status
+            git config --global user.email "ci@greenpeace.org"
+            git config --global user.name "${CIRCLE_USERNAME}"
             git add -f Chart.yaml
             git add -f requirements.yaml
-            git commit -m ":robot: Build artifacts ${new_version}"
-            git log -1
+            git commit -m ":robot: Build artifacts ${new_version} [ci skip]"
+            git push origin develop
+            release-start.sh $new_version
             release-finish.sh $new_version
       - run:
           name: Notify failure
