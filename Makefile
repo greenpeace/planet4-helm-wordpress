@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+.EXPORT_ALL_VARIABLES:
+
 GCLOUD_CHART_VERSION ?= 0.6.0
 REDIS_CHART_VERSION ?= 4.2.7
 
@@ -71,12 +73,9 @@ pull:
 rewrite: Chart.yaml requirements.yaml
 
 Chart.yaml:
-	BUILD_TAG=$(BUILD_TAG) \
 	envsubst < Chart.yaml.in > Chart.yaml
 
 requirements.yaml:
-	GCLOUD_CHART_VERSION=$(GCLOUD_CHART_VERSION) \
-	REDIS_CHART_VERSION=$(REDIS_CHART_VERSION) \
 	envsubst < requirements.yaml.in > requirements.yaml
 
 .PHONY: package
