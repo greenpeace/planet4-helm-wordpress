@@ -30,7 +30,14 @@ BUILD_TAG := testing
 endif
 
 .PHONY: all
-all: pull dep rewrite lint package index push
+all: init pull dep lint package index push
+
+init: .git/hooks/pre-commit
+
+.git/hooks/pre-commit:
+	@chmod 755 .githooks/*
+	@find .git/hooks -type l -exec rm {} \;
+	@find .githooks -type f -exec ln -sf ../../{} .git/hooks/ \;
 
 .PHONY: clean
 clean:
