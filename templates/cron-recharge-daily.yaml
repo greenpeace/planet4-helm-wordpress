@@ -1,0 +1,31 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: recharge-daily
+            image: gcr.io/planet-4-151612/recharge:latest
+            env:
+            - name: RECHARGE_PERIOD
+              value: daily
+            - name: NEWRELIC_APP_NAME
+              value: {{ .Values.newrelic.appname | quote }}
+            - name: RECHARGE_BUCKET_PATH
+              value: {{ .Values.hostpath | quote }}
+            - name: NEWRELIC_REST_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-newrelic"
+                  key: apikey
+            - name: RECHARGE_SERVICE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-stateless"
+                  key: credentials.json
+            {{ end }}
