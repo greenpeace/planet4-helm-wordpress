@@ -22,10 +22,10 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-newrelic"
-                  key: apikey
+                  key: apiKey
             - name: RECHARGE_SERVICE_KEY
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-stateless"
                   key: credentials.json
-            {{ end }}
+          restartPolicy: OnFailure
