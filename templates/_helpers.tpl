@@ -35,7 +35,6 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 {{- end -}}
 
-
 {{/*
 Expand the name of the chart and service
 */}}
@@ -61,6 +60,14 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-%s-openresty" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+{{- end -}}
+
+
+{{/*
+Expand the name of the chart and service
+*/}}
+{{- define "recharge.fullname" -}}
+{{- printf "%s-recharge" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
