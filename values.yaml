@@ -51,7 +51,7 @@ php:
     enabled: true
     livenessDelay: 10
     livenessPeriod: 10
-    readinessDelay: 10
+    readinessDelay: 20
     readinessPeriod: 10
   minReplicaCount: 1
   maxReplicaCount: 5
@@ -113,6 +113,7 @@ newrelic:
   enabled: true
   appname: Planet 4 Wordpress
   # license:
+  # apikey:
 
 redis:
   cluster:
