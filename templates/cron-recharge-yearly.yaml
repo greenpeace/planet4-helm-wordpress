@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: "{{ template "recharge.fullname" . }}-yearly"
+  component: recharge
+spec:
+  schedule: "42 2 1 1 *"
+  jobTemplate:
+    spec:
+      concurrencyPolicy: Forbid
+      backoffLimit: 5
+      failedJobsHistoryLimit: 10
+      successfulJobsHistoryLimit: 3
+      template:
+        spec:
+          containers:
+          - name: "{{ template "recharge.fullname" . }}-yearly"
+            image: gcr.io/planet-4-151612/p4-nro-recharge
+            env:
+            - name: RECHARGE_PERIOD
+              value: year
+            - name: NEWRELIC_APP_NAME
+              value: {{ .Values.newrelic.appname | quote }}
+            - name: RECHARGE_BUCKET_PATH
+              value: {{ .Values.hostpath | quote }}
+            - name: NEWRELIC_REST_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-newrelic"
+                  key: apiKey
+            - name: RECHARGE_SERVICE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-stateless"
+                  key: credentials.json
+          restartPolicy: OnFailure
