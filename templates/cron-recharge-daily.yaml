@@ -2,6 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: "{{ template "recharge.fullname" . }}-daily"
+  component: recharge
 spec:
   schedule: "11 1 * * *"
   jobTemplate:
