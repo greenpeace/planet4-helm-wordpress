@@ -10,6 +10,7 @@ metadata:
 spec:
   scaleTargetRef:
     kind: Deployment
+    apiVersion: extensions/v1beta1
     name: {{ template "openresty.fullname" . }}
   minReplicas: {{ .Values.openresty.minReplicaCount }}
   maxReplicas: {{ .Values.openresty.maxReplicaCount }}
