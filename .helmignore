@@ -19,6 +19,8 @@
 .project
 .idea/
 *.tmproj
+# Local support files
+.githooks
 values-local.yaml
 secrets/
 Makefile

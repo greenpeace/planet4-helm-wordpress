@@ -1,24 +1,24 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: "{{ template "recharge.fullname" . }}-daily"
+  name: "{{ template "recharge.fullname" . }}-monthly"
   component: recharge
 spec:
-  schedule: "11 1 * * *"
+  schedule: "42 1 1 * *"
   jobTemplate:
     spec:
       concurrencyPolicy: Forbid
       backoffLimit: 5
       failedJobsHistoryLimit: 10
-      successfulJobsHistoryLimit: 7
+      successfulJobsHistoryLimit: 3
       template:
         spec:
           containers:
-          - name: "{{ template "recharge.fullname" . }}-daily"
+          - name: "{{ template "recharge.fullname" . }}-monthly"
             image: gcr.io/planet-4-151612/p4-nro-recharge
             env:
             - name: RECHARGE_PERIOD
-              value: day
+              value: month
             - name: NEWRELIC_APP_NAME
               value: {{ .Values.newrelic.appname | quote }}
             - name: RECHARGE_BUCKET_PATH

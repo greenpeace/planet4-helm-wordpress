@@ -113,7 +113,7 @@ newrelic:
   enabled: true
   appname: Planet 4 Wordpress
   # license:
-  # apikey:
+  # apiKey:
 
 redis:
   cluster:

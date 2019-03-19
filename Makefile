@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+.EXPORT_ALL_VARIABLES:
+
 GCLOUD_CHART_VERSION ?= 0.6.0
 REDIS_CHART_VERSION ?= 4.2.7
 
@@ -30,21 +32,30 @@ BUILD_TAG := testing
 endif
 
 .PHONY: all
-all: pull dep rewrite lint package index push
+all: init pull dep lint package index push
+
+init: .git/hooks/pre-commit
+	@git update-index --assume-unchanged Chart.yaml
+	@git update-index --assume-unchanged requirements.yaml
+
+.git/hooks/pre-commit:
+	@chmod 755 .githooks/*
+	@find .git/hooks -type l -exec rm {} \;
+	@find .githooks -type f -exec ln -sf ../../{} .git/hooks/ \;
 
 .PHONY: clean
 clean:
-	rm -f Chart.yaml requirements.yaml
+	@rm -f Chart.yaml requirements.yaml
 
 .PHONY: lint
 lint: lint-yaml lint-helm
 
 .PHONY: lint-yaml
 lint-yaml: Chart.yaml requirements.yaml
-	yamllint .circleci/config.yml
-	yamllint Chart.yaml
-	yamllint values.yaml
-	yamllint requirements.yaml
+	@yamllint .circleci/config.yml
+	@yamllint Chart.yaml
+	@yamllint values.yaml
+	@yamllint requirements.yaml
 
 .PHONY: lint-helm
 	@helm lint .
@@ -53,28 +64,25 @@ lint-yaml: Chart.yaml requirements.yaml
 dep: lint
 	@helm dependency update
 
+$(CHART_DIRECTORY):
+	@mkdir -p $@
+
 .PHONY: pull
-pull:
-	@mkdir -p $(CHART_DIRECTORY)
-	@pushd $(CHART_DIRECTORY) > /dev/null && \
-	gsutil -m rsync -d $(CHART_BUCKET) . && \
-	popd > /dev/null
+pull: $(CHART_DIRECTORY)
+	@gsutil -m rsync -d $(CHART_BUCKET) $(CHART_DIRECTORY)
 
 .PHONY: rewrite rewrite-chart rewrite-requirements
 rewrite: Chart.yaml requirements.yaml
 
 Chart.yaml:
-	BUILD_TAG=$(BUILD_TAG) \
-	envsubst < Chart.yaml.in > Chart.yaml
+	@envsubst < Chart.yaml.in > Chart.yaml
 
 requirements.yaml:
-	GCLOUD_CHART_VERSION=$(GCLOUD_CHART_VERSION) \
-	REDIS_CHART_VERSION=$(REDIS_CHART_VERSION) \
-	envsubst < requirements.yaml.in > requirements.yaml
+	@envsubst < requirements.yaml.in > requirements.yaml
 
 .PHONY: package
 package: lint Chart.yaml
-	[[ $(BUILD_TAG) =~ ^[0-9]+\.[0-9]+ ]] || { \
+	@[[ $(BUILD_TAG) =~ ^[0-9]+\.[0-9]+ ]] || { \
 		>&2 echo "ERROR: Refusing to package non-semver release: '$(BUILD_TAG)'"; \
 		exit 1; \
 	}
@@ -86,13 +94,9 @@ verify: lint
 	@helm verify $(CHART_DIRECTORY)
 
 .PHONY: index
-index: lint
-	@pushd $(CHART_DIRECTORY) > /dev/null && \
-	helm repo index . --url $(CHART_URL) && \
-	popd > /dev/null
+index: lint $(CHART_DIRECTORY)
+	@helm repo index $(CHART_DIRECTORY) --url $(CHART_URL)
 
 .PHONY: push
-push: package
-	@pushd $(CHART_DIRECTORY) > /dev/null && \
-	gsutil -m rsync -d . $(CHART_BUCKET) && \
-	popd > /dev/null
+push: package $(CHART_DIRECTORY)
+	@gsutil -m rsync -d $(CHART_DIRECTORY) $(CHART_BUCKET)
