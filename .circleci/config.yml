@@ -15,14 +15,11 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: make clean lint
+      - run: TYPE="@rawalker Promotion" notify-job-hold.sh
       - run:
           name: Notify failure
           when: on_fail
           command: TYPE="Lint" notify-job-failure.sh
-  notify:
-    <<: *defaults
-    steps:
-      - run: TYPE="@rawalker Promotion" notify-job-hold.sh
   release:
     <<: *defaults
     steps:
@@ -71,13 +68,6 @@ workflows:
               ignore: master
       - hold:
           type: approval
-          requires:
-            - lint
-          filters:
-            branches:
-              only: develop
-      - notify:
-          context: org-global
           requires:
             - lint
           filters:
