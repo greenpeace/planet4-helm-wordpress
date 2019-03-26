@@ -14,4 +14,4 @@ spec:
     name: {{ template "openresty.fullname" . }}
   minReplicas: {{ .Values.openresty.minReplicaCount }}
   maxReplicas: {{ .Values.openresty.maxReplicaCount }}
-  targetCPUUtilizationPercentage: 60
+  targetCPUUtilizationPercentage: 90

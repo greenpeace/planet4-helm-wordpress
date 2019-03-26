@@ -14,4 +14,4 @@ spec:
     name: {{ template "php.fullname" . }}
   minReplicas: {{ .Values.php.minReplicaCount }}
   maxReplicas: {{ .Values.php.maxReplicaCount }}
-  targetCPUUtilizationPercentage: 60
+  targetCPUUtilizationPercentage: 80
