@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
           - name: "{{ template "recharge.fullname" . }}-daily"
-            image: gcr.io/planet-4-151612/p4-nro-recharge
+            image: {{ .Values.recharge.image }}:{{ .Values.recharge.tag }}
             env:
             - name: RECHARGE_PERIOD
               value: day
