@@ -115,6 +115,10 @@ newrelic:
   # license:
   # apiKey:
 
+recharge:
+  image: gcr.io/planet-4-151612/p4-nro-recharge
+  tag: v0.0.3
+
 redis:
   cluster:
     enabled: false
