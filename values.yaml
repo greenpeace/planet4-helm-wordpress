@@ -58,7 +58,7 @@ php:
   resources:
     requests:
       memory: "192Mi"
-      cpu: "50m"
+      cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000 = 1 CPU
     limits:
       memory: "768Mi"
       cpu: "2"
@@ -84,7 +84,7 @@ openresty:
   resources:
     requests:
       memory: "64Mi"
-      cpu: "50m"
+      cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000 = 1 CPU
     limits:
       memory: "256Mi"
       cpu: "2"
