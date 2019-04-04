@@ -28,10 +28,18 @@ spec:
         component: php
         environment: {{ .Values.environment }}
     spec:
+      volumes:
+        - name: timber-cache
+          emptyDir:
+            medium: "Memory"
+            sizeLimit: "128Mi"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+          volumeMounts:
+            - name: timber-cache
+              mountPath: /app/source/public/wp-content/plugins/timber/twig-cache
           env:
             - name: APP_ENV
               value: {{ .Values.environment | quote }}
