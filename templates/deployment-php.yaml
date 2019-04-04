@@ -3,11 +3,12 @@ kind: Deployment
 metadata:
   name: {{ template "php.fullname" . }}
   labels:
-    app: {{ .Release.Name }}-wordpress
+    app: "planet4"
     chart: {{ template "wordpress.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
     component: php
+    environment: {{ .Values.environment }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.php.minReplicaCount }}
   strategy:
@@ -18,20 +19,36 @@ spec:
   minReadySeconds: 15
   selector:
     matchLabels:
-      app: {{ template "php.name" . }}
+      app: "planet4"
       release: {{ .Release.Name }}
+      component: php
   template:
     metadata:
       labels:
-        app: {{ template "php.name" . }}
-        release: {{ .Release.Name }}
+        app: "planet4"
+        chart: {{ template "wordpress.chart" . }}
         component: php
         environment: {{ .Values.environment }}
+        heritage: {{ .Release.Service }}
+        release: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: timber-cache
+          emptyDir:
+            medium: "Memory"
+            sizeLimit: "128Mi"
+        - name: wordfence-cache
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-pvc-wordfence"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+          volumeMounts:
+            - name: timber-cache
+              mountPath: /app/source/public/wp-content/plugins/timber-library/cache
+            - name: wordfence-cache
+              mountPath: /app/source/public/wp-content/wflogs
           env:
             - name: APP_ENV
               value: {{ .Values.environment | quote }}

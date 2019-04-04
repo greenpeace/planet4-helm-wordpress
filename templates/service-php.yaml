@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: {{ template "php.fullname" . }}
   labels:
-    app: {{ template "php.name" . }}
+    app: "planet4"
     chart: {{ template "wordpress.chart" . }}
+    component: "php"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -15,5 +16,7 @@ spec:
       protocol: TCP
       name: fastcgi
   selector:
-    app: {{ template "php.name" . }}
+    app: "planet4"
     release: {{ .Release.Name }}
+    component: php
+    environment: {{ .Values.environment }}
