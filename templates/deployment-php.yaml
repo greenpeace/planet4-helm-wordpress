@@ -42,7 +42,7 @@ spec:
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
           volumeMounts:
             - name: timber-cache
-              mountPath: /app/source/public/wp-content/plugins/timber/twig-cache
+              mountPath: /app/source/public/wp-content/plugins/timber-library/cache
             - name: wordfence-cache
               mountPath: /app/source/public/wp-content/wflogs
           env:
