@@ -33,6 +33,10 @@ spec:
           emptyDir:
             medium: "Memory"
             sizeLimit: "128Mi"
+        - name: wordfence-cache
+          emptyDir:
+            medium: "Memory"
+            sizeLimit: "32Mi"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
@@ -40,6 +44,8 @@ spec:
           volumeMounts:
             - name: timber-cache
               mountPath: /app/source/public/wp-content/plugins/timber/twig-cache
+            - name: wordfence-cache
+              mountPath: /app/source/public/wp-content/wflogs
           env:
             - name: APP_ENV
               value: {{ .Values.environment | quote }}
