@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: {{ template "exim.fullname" . }}
   labels:
-    app: {{ template "exim.name" . }}
+    app: "planet4"
     chart: {{ template "wordpress.chart" . }}
-    release: {{ .Release.Name }}
+    component: "mail"
     heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
 spec:
   type: {{ .Values.exim.service.type }}
   ports:
@@ -15,5 +16,7 @@ spec:
       protocol: TCP
       name: smtp
   selector:
-    app: {{ template "exim.name" . }}
+    app: "planet4"
     release: {{ .Release.Name }}
+    component: mail
+    environment: {{ .Values.environment }}

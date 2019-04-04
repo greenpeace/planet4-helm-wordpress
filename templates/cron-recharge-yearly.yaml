@@ -3,9 +3,13 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: "{{ template "recharge.fullname" . }}-yearly"
-  component: recharge
+  labels:
+    app: "planet4"
+    environment: {{ .Values.environment | quote }}
+    release: {{ .Release.Name | quote }}
+    component: "recharge"
 spec:
-  schedule: "42 2 1 1 *"
+  schedule: "42 4 1 1 *"
   jobTemplate:
     spec:
       concurrencyPolicy: Forbid

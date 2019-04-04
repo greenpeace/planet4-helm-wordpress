@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: {{ template "openresty.fullname" . }}
   labels:
-    app: {{ template "openresty.name" . }}
+    app: "planet4"
     chart: {{ template "wordpress.chart" . }}
+    component: "proxy"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -15,5 +16,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "openresty.name" . }}
+    app: "planet4"
     release: {{ .Release.Name }}
+    component: proxy
+    environment: {{ .Values.environment }}
