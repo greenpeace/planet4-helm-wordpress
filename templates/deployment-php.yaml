@@ -34,9 +34,8 @@ spec:
             medium: "Memory"
             sizeLimit: "128Mi"
         - name: wordfence-cache
-          emptyDir:
-            medium: "Memory"
-            sizeLimit: "32Mi"
+          persistentVolumeClaim:
+            claimName: "{{ .Release.Name }}-pvc-wordfence"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
