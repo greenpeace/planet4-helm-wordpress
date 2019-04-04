@@ -53,7 +53,7 @@ php:
     livenessPeriod: 10
     readinessDelay: 20
     readinessPeriod: 10
-  minReplicaCount: 1
+  minReplicaCount: 2
   maxReplicaCount: 5
   resources:
     requests:
@@ -79,7 +79,7 @@ openresty:
     livenessPeriod: 10
     readinessDelay: 10
     readinessPeriod: 10
-  minReplicaCount: 1
+  minReplicaCount: 2
   maxReplicaCount: 5
   resources:
     requests:
