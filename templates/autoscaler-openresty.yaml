@@ -14,4 +14,4 @@ spec:
     name: {{ template "openresty.fullname" . }}
   minReplicas: {{ .Values.openresty.minReplicaCount }}
   maxReplicas: {{ .Values.openresty.maxReplicaCount }}
-  targetCPUUtilizationPercentage: 1000 # * php.resources.requests. 1000% of 50m = 1 CPU
+  targetCPUUtilizationPercentage: 1000 # * php.resources.requests. 1000% of 50m = .5 CPU
