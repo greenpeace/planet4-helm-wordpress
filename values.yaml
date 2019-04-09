@@ -73,6 +73,7 @@ openresty:
   service:
     type: ClusterIP
     port: 80
+  geoip: false
   healthProbes:
     enabled: true
     livenessDelay: 10
