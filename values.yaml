@@ -57,10 +57,10 @@ php:
   maxReplicaCount: 5
   resources:
     requests:
-      memory: "256Mi"
-      cpu: "100m" # * targetCPUUtilizationPercentage. 100m * 1000 = 1 CPU
+      memory: "512Mi"
+      cpu: "200m" # * targetCPUUtilizationPercentage. 100m * 1000 = 1 CPU
     limits:
-      memory: "768Mi"
+      memory: "1Gi"
       cpu: "2"
 
 openresty:
