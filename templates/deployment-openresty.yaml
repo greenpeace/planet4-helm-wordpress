@@ -63,6 +63,8 @@ spec:
           {{- else }}
             value: "false"
           {{- end }}
+          - name: GEOIP2_ENABLED
+            value: {{ .Values.openresty.geoip | quote }}
           {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:

@@ -57,10 +57,10 @@ php:
   maxReplicaCount: 5
   resources:
     requests:
-      memory: "256Mi"
-      cpu: "100m" # * targetCPUUtilizationPercentage. 100m * 1000 = 1 CPU
+      memory: "512Mi"
+      cpu: "200m" # * targetCPUUtilizationPercentage. 100m * 1000 = 1 CPU
     limits:
-      memory: "768Mi"
+      memory: "1Gi"
       cpu: "2"
 
 openresty:
@@ -73,6 +73,7 @@ openresty:
   service:
     type: ClusterIP
     port: 80
+  geoip: false
   healthProbes:
     enabled: true
     livenessDelay: 10
@@ -95,7 +96,7 @@ exim:
   image:
     repository: gcr.io/planet-4-151612/exim
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 1
   service:
     port: 25
