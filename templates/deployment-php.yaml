@@ -83,6 +83,10 @@ spec:
               value: "true"
             - name: WP_REDIS_HOST
               value: {{ template "redis.fullname" . }}-master
+            - name: PHP_SESSION_SAVE_HANDLER
+              value: redis
+            - name: PHP_SESSION_SAVE_PATH
+              value: tcp://{{ template "redis.fullname" . }}-master:6379
             {{- end }}
 
             - name: WP_STATELESS_MEDIA_ENABLED
