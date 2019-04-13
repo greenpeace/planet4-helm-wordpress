@@ -14,4 +14,4 @@ spec:
     name: {{ template "php.fullname" . }}
   minReplicas: {{ .Values.php.minReplicaCount }}
   maxReplicas: {{ .Values.php.maxReplicaCount }}
-  targetCPUUtilizationPercentage: 1000 # * php.resources.requests. 1000% of 100m = 1 CPU
+  targetCPUUtilizationPercentage: {{ .Values.php.targetCPUUtilizationPercentage }} # * php.resources.requests. 1000% of 100m = 1 CPU

@@ -55,10 +55,11 @@ php:
     readinessPeriod: 10
   minReplicaCount: 2
   maxReplicaCount: 5
+  targetCPUUtilizationPercentage: 500 # Scale up when pod uses 1 core
   resources:
     requests:
       memory: "512Mi"
-      cpu: "200m" # * targetCPUUtilizationPercentage. 100m * 1000 = 1 CPU
+      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 250 = 1 CPU
     limits:
       memory: "1Gi"
       cpu: "2"
@@ -82,13 +83,14 @@ openresty:
     readinessPeriod: 10
   minReplicaCount: 2
   maxReplicaCount: 5
+  targetCPUUtilizationPercentage: 1000 # Scale up when pod uses .5 cores
   resources:
     requests:
       memory: "64Mi"
       cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000% = .5 CPU
     limits:
       memory: "256Mi"
-      cpu: "2"
+      cpu: "1"
 
 exim:
   smarthost: "smtp.sendgrid.net::2525"
