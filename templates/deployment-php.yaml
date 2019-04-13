@@ -170,11 +170,15 @@ spec:
           readinessProbe:
             tcpSocket:
               port: {{ .Values.php.service.port }}
+              timeoutSeconds: 2
+              failureThreshold: 5
             initialDelaySeconds: {{ .Values.php.healthProbes.readinessDelay }}
             periodSeconds: {{ .Values.php.healthProbes.readinessPeriod }}
           livenessProbe:
             tcpSocket:
               port: {{ .Values.php.service.port }}
+              timeoutSeconds: 2
+              failureThreshold: 5
             initialDelaySeconds: {{ .Values.php.healthProbes.livenessDelay }}
             periodSeconds: {{ .Values.php.healthProbes.livenessPeriod }}
           {{- end }}
