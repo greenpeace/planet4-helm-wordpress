@@ -36,7 +36,6 @@ spec:
         - name: timber-cache
           emptyDir:
             medium: "Memory"
-            sizeLimit: "128Mi"
         - name: wordfence-cache
           persistentVolumeClaim:
             claimName: "{{ .Release.Name }}-pvc-wordfence"
