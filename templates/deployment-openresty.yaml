@@ -68,7 +68,7 @@ spec:
           {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:
-              path: /health_php.php
+              path: /health-check
               port: http
             initialDelaySeconds: {{ .Values.openresty.healthProbes.livenessDelay }}
             periodSeconds: {{ .Values.php.healthProbes.livenessPeriod }}
