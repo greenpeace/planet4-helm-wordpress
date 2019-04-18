@@ -88,6 +88,19 @@ spec:
               value: tcp://{{ template "redis.fullname" . }}-master:6379
             {{- end }}
 
+            - name: PHP_PROCESS_MANAGER_MAX_CHILDREN
+              value: {{ .Values.php.process.maxChildren | quote }}
+            - name: PHP_PROCESS_MANAGER_MAX_REQUESTS
+              value: {{ .Values.php.process.maxRequests | quote }}
+            - name: PHP_PROCESS_MANAGER_MAX_SPARE_SERVERS
+              value: {{ .Values.php.process.maxSpare | quote }}
+            - name: PHP_PROCESS_MANAGER_MIN_SPARE_SERVERS
+              value: {{ .Values.php.process.minSpare | quote }}
+            - name: PHP_PROCESS_MANAGER_START_SERVERS
+              value: {{ .Values.php.process.start | quote }}
+            - name: PHP_PROCESS_MANAGER
+              value: {{ .Values.php.process.manager | quote }}
+
             - name: WP_STATELESS_MEDIA_ENABLED
               value: {{ .Values.wp.stateless.enabled | quote }}
             - name: WP_STATELESS_MEDIA_BUCKET

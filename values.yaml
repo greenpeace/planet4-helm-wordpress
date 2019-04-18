@@ -42,6 +42,13 @@ php:
   persistence:
     enabled: true
     class: nfs
+  process:
+    manager: dynamic
+    maxChildren: 50
+    start: 5
+    minSpare: 3
+    maxSpare: 5
+    maxRequests: 1000
   image:
     repository: gcr.io/planet-4-151612/planet4-base-app
     tag: latest
