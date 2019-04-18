@@ -52,7 +52,7 @@ php:
   image:
     repository: gcr.io/planet-4-151612/planet4-base-app
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 9000
@@ -78,7 +78,7 @@ openresty:
   image:
     repository: gcr.io/planet-4-151612/planet4-base-openresty
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   fastcgi:
     redis: true
   service:
@@ -108,7 +108,7 @@ exim:
   image:
     repository: gcr.io/planet-4-151612/exim
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicaCount: 1
   service:
     port: 25
