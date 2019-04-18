@@ -37,6 +37,7 @@ jobs:
             git config --global user.name "${CIRCLE_USERNAME}"
             git update-index --no-assume-unchanged Chart.yaml requirements.yaml
             git add -f Chart.yaml requirements.yaml
+            git add .
             git commit -m ":robot: Release ${new_version}" -m "[ci skip]"
             git push origin develop
             release-start.sh $new_version
