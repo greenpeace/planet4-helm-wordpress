@@ -1,7 +1,7 @@
 ---
 dependencies:
   - name: redis
-    version: 4.2.7
+    version: 6.4.4
     repository: "@stable"
   - name: gcloud-sqlproxy
     version: 0.6.0

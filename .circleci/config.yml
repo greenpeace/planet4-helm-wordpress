@@ -23,6 +23,7 @@ jobs:
   release:
     <<: *defaults
     steps:
+      - setup_remote_docker
       - attach_workspace:
           at: /tmp/workspace
       - checkout
@@ -31,13 +32,13 @@ jobs:
           command: |
             new_version="$(git-new-version.sh)"
             echo "Promoting branch ${CIRCLE_BRANCH} to ${new_version}"
-            set -x
             BUILD_TAG="${new_version#v}" make clean rewrite
             git config --global user.email "ci@greenpeace.org"
             git config --global user.name "${CIRCLE_USERNAME}"
-            git add -f Chart.yaml
-            git add -f requirements.yaml
-            git commit -m ":robot: Build artifacts ${new_version} [ci skip]"
+            git update-index --no-assume-unchanged Chart.yaml requirements.yaml
+            git add -f Chart.yaml requirements.yaml
+            git add .
+            git commit -m ":robot: Release ${new_version}" -m "[ci skip]"
             git push origin develop
             release-start.sh $new_version
             release-finish.sh $new_version

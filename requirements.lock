@@ -1,9 +1,9 @@
 dependencies:
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 4.2.7
+  version: 6.4.4
 - name: gcloud-sqlproxy
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 0.6.0
-digest: sha256:caccb6da22181d3102b5ba83978247a53a075d4c84d1435ef86cc66a6626a034
-generated: 2018-11-14T16:38:38.475735176+11:00
+digest: sha256:1215494fe5742160cfe89bdade8c699d8d55f42b5b4c5db082fbebc893755af5
+generated: 2019-04-18T13:23:44.2868444+10:00
