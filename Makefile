@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .EXPORT_ALL_VARIABLES:
 
 GCLOUD_CHART_VERSION ?= 0.6.0
-REDIS_CHART_VERSION ?= 4.2.7
+REDIS_CHART_VERSION ?= 6.4.4
 
 CHART_DIRECTORY ?= ../planet4-helm-charts
 
@@ -32,7 +32,7 @@ BUILD_TAG := testing
 endif
 
 .PHONY: all
-all: init pull dep lint package index push
+all: clean pull dep lint package index push
 
 init: .git/hooks/pre-commit
 	@git update-index --assume-unchanged Chart.yaml
@@ -44,7 +44,7 @@ init: .git/hooks/pre-commit
 	@find .githooks -type f -exec ln -sf ../../{} .git/hooks/ \;
 
 .PHONY: clean
-clean:
+clean: init
 	@rm -f Chart.yaml requirements.yaml
 
 .PHONY: lint
