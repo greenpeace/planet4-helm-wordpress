@@ -15,7 +15,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 50%
-  minReadySeconds: 10
+  minReadySeconds: 5
   selector:
     matchLabels:
       app: "planet4"
