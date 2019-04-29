@@ -35,9 +35,11 @@ spec:
         - name: timber-cache
           emptyDir:
             medium: "Memory"
+        {{- if .Values.php.persistence.enabled }}
         - name: wordfence-cache
           persistentVolumeClaim:
             claimName: "{{ .Release.Name }}-pvc-wordfence"
+        {{- end }}
       containers:
         - name: {{ template "openresty.fullname" . }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
@@ -45,8 +47,10 @@ spec:
           volumeMounts:
             - name: timber-cache
               mountPath: /app/source/public/wp-content/plugins/timber-library/cache
+            {{- if .Values.php.persistence.enabled }}
             - name: wordfence-cache
               mountPath: /app/source/public/wp-content/wflogs
+            {{- end }}
           env:
             - name: APP_ENV
               value: {{ .Values.environment | quote }}
