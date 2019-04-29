@@ -58,7 +58,7 @@ php:
     port: 9000
   memoryLimit: 384M
   healthProbes:
-    enabled: false
+    enabled: true
     livenessDelay: 10
     livenessPeriod: 10
     readinessDelay: 20
