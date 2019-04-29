@@ -39,7 +39,7 @@ spec:
           persistentVolumeClaim:
             claimName: "{{ .Release.Name }}-pvc-wordfence"
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "openresty.fullname" . }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
           volumeMounts:

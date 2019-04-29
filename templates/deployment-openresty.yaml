@@ -32,7 +32,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "openresty.fullname" . }}
           image: "{{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}"
           imagePullPolicy: {{ .Values.openresty.image.pullPolicy }}
           env:

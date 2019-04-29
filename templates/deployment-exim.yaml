@@ -27,7 +27,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "exim.fullname" . }}
           image: "{{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}"
           imagePullPolicy: {{ .Values.exim.image.pullPolicy }}
           env:
