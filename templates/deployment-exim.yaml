@@ -27,7 +27,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "exim.fullname" . }}
           image: "{{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}"
           imagePullPolicy: {{ .Values.exim.image.pullPolicy }}
           env:
@@ -61,12 +61,12 @@ spec:
             tcpSocket:
               port: smtp
             initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 30
           livenessProbe:
             tcpSocket:
               port: smtp
             initialDelaySeconds: 15
-            periodSeconds: 20
+            periodSeconds: 30
           {{- end }}
           ports:
             - name: smtp

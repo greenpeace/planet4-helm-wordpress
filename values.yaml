@@ -40,7 +40,7 @@ dbDatabase: wordpress_db
 php:
   enabled: true
   persistence:
-    enabled: true
+    enabled: false
     class: nfs
   process:
     manager: dynamic
@@ -58,7 +58,7 @@ php:
     port: 9000
   memoryLimit: 384M
   healthProbes:
-    enabled: false
+    enabled: true
     livenessDelay: 10
     livenessPeriod: 10
     readinessDelay: 20

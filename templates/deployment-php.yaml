@@ -14,9 +14,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-  minReadySeconds: 15
+      maxSurge: 50%
+  minReadySeconds: 10
   selector:
     matchLabels:
       app: "planet4"
@@ -36,18 +35,22 @@ spec:
         - name: timber-cache
           emptyDir:
             medium: "Memory"
+        {{- if .Values.php.persistence.enabled }}
         - name: wordfence-cache
           persistentVolumeClaim:
             claimName: "{{ .Release.Name }}-pvc-wordfence"
+        {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "openresty.fullname" . }}
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}"
           imagePullPolicy: {{ .Values.php.image.pullPolicy }}
           volumeMounts:
             - name: timber-cache
               mountPath: /app/source/public/wp-content/plugins/timber-library/cache
+            {{- if .Values.php.persistence.enabled }}
             - name: wordfence-cache
               mountPath: /app/source/public/wp-content/wflogs
+            {{- end }}
           env:
             - name: APP_ENV
               value: {{ .Values.environment | quote }}
