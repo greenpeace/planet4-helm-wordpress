@@ -71,22 +71,6 @@ Expand the name of the chart and service
 {{- end -}}
 
 {{/*
-Expand the name of the chart and service
-*/}}
-{{- define "exim.name" -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- printf "%s-exim" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified exim hostname.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "exim.fullname" -}}
-{{- printf "%s-%s" .Release.Name "exim" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
 Create a default fully qualified redis hostname.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}

@@ -69,7 +69,7 @@ php:
   resources:
     requests:
       memory: "512Mi"
-      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 250 = 1 CPU
+      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 500 = 1 CPU
     limits:
       memory: "1Gi"
       cpu: "2"
@@ -84,7 +84,7 @@ openresty:
   service:
     type: ClusterIP
     port: 80
-  geoip: false
+  geoip: false # Should increase readinessDelay if geoip is enabled to allow time for DB to load
   healthProbes:
     enabled: true
     livenessDelay: 10
@@ -102,25 +102,8 @@ openresty:
       memory: "256Mi"
       cpu: "1"
 
-exim:
-  smarthost: "smtp-out.greenpeace.org::587"
-  mailFrom: "greenpeace.org"
-  image:
-    repository: gcr.io/planet-4-151612/exim
-    tag: latest
-    pullPolicy: Always
-  replicaCount: 1
-  service:
-    port: 25
-  resources:
-    requests:
-      memory: "32Mi"
-      cpu: "0"
-    limits:
-      memory: "128Mi"
-      cpu: "100m"
-  # username:
-  # password:
+smtp:
+  host: "smtp-out.greenpeace.org:587"
 
 newrelic:
   enabled: true

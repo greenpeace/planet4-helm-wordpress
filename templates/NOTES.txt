@@ -1,7 +1,6 @@
 Containers:
 - {{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}
 - {{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}
-- {{ .Values.exim.image.repository }}:{{ .Values.exim.image.tag }}
 
 {{- if .Values.sqlproxy.enabled }}
 

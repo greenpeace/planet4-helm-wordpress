@@ -5,6 +5,6 @@ dependencies:
     repository: "@stable"
   - name: gcloud-sqlproxy
     version: ${GCLOUD_CHART_VERSION}
-    repository: "@stable"
+    repository: "@rimusz"
     condition: cloudsql.enabled
     alias: sqlproxy

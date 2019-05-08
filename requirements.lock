@@ -3,7 +3,7 @@ dependencies:
   repository: https://kubernetes-charts.storage.googleapis.com
   version: 6.4.4
 - name: gcloud-sqlproxy
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.6.0
-digest: sha256:1215494fe5742160cfe89bdade8c699d8d55f42b5b4c5db082fbebc893755af5
-generated: 2019-04-18T13:23:44.2868444+10:00
+  repository: https://charts.rimusz.net
+  version: 0.12.0
+digest: sha256:bc2423646a04544bc274d4de0405ba9550b9105e419dbbb67ec577bd2ae3bbc8
+generated: 2019-05-08T11:40:40.602+10:00

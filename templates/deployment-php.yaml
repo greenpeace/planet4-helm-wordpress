@@ -134,7 +134,7 @@ spec:
             {{- end }}
 
             - name: SSMTP_MAIL_RELAY
-              value: {{ template "exim.fullname" . }}
+              value: {{ .Values.smtp.host }}
 
             - name: WP_AUTH_KEY
               valueFrom:
