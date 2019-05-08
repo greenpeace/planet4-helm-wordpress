@@ -51,6 +51,7 @@ jobs:
     steps:
       - checkout
       - run: helm init --client-only
+      - run: helm repo add rimusz https://charts.rimusz.net
       - run: activate-gcloud-account.sh
       - run: BUILD_TAG=${CIRCLE_TAG#v} make
       - run:
