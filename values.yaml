@@ -102,25 +102,8 @@ openresty:
       memory: "256Mi"
       cpu: "1"
 
-exim:
-  smarthost: "smtp-out.greenpeace.org::587"
-  mailFrom: "greenpeace.org"
-  image:
-    repository: gcr.io/planet-4-151612/exim
-    tag: latest
-    pullPolicy: Always
-  replicaCount: 1
-  service:
-    port: 25
-  resources:
-    requests:
-      memory: "32Mi"
-      cpu: "0"
-    limits:
-      memory: "128Mi"
-      cpu: "100m"
-  # username:
-  # password:
+smtp:
+  host: "smtp-out.greenpeace.org:587"
 
 newrelic:
   enabled: true
