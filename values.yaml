@@ -69,7 +69,7 @@ php:
   resources:
     requests:
       memory: "512Mi"
-      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 250 = 1 CPU
+      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 500 = 1 CPU
     limits:
       memory: "1Gi"
       cpu: "2"
@@ -84,7 +84,7 @@ openresty:
   service:
     type: ClusterIP
     port: 80
-  geoip: false
+  geoip: false # Should increase readinessDelay if geoip is enabled to allow time for DB to load
   healthProbes:
     enabled: true
     livenessDelay: 10
