@@ -32,7 +32,7 @@ BUILD_TAG := testing
 endif
 
 .PHONY: all
-all: clean pull dep lint package index push
+all: clean pull dep lint package index push update
 
 init: .git/hooks/pre-commit
 	@git update-index --assume-unchanged Chart.yaml
@@ -100,3 +100,8 @@ index: lint $(CHART_DIRECTORY)
 .PHONY: push
 push: package $(CHART_DIRECTORY)
 	@gsutil -m rsync -d $(CHART_DIRECTORY) $(CHART_BUCKET)
+
+.PHONY: update
+update:
+	@helm repo update
+	@helm search $(CHART_NAME)
