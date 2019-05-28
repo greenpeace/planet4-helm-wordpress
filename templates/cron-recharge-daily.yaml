@@ -10,12 +10,12 @@ metadata:
     component: "recharge"
 spec:
   schedule: "11 2 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 10
+  successfulJobsHistoryLimit: 7
   jobTemplate:
     spec:
-      concurrencyPolicy: Forbid
       backoffLimit: 5
-      failedJobsHistoryLimit: 10
-      successfulJobsHistoryLimit: 7
       template:
         spec:
           containers:
