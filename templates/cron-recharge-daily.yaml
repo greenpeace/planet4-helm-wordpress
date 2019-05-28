@@ -1,3 +1,4 @@
+{{- if .Values.recharge.enabled }}
 {{- if eq .Values.environment "production" }}
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -39,4 +40,5 @@ spec:
                   name: "{{ .Release.Name }}-stateless"
                   key: credentials.json
           restartPolicy: OnFailure
+{{- end }}
 {{- end }}
