@@ -114,7 +114,7 @@ newrelic:
 recharge:
   enabled: false
   image: gcr.io/planet-4-151612/p4-nro-recharge
-  tag: v0.0.3
+  tag: v0.0.8
 
 redis:
   cluster:
