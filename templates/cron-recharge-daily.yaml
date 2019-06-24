@@ -27,8 +27,6 @@ spec:
               value: day
             - name: NEWRELIC_APP_NAME
               value: {{ .Values.newrelic.appname | quote }}
-            - name: RECHARGE_BUCKET_PATH
-              value: {{ .Values.hostpath | quote }}
             - name: NEWRELIC_REST_API_KEY
               valueFrom:
                 secretKeyRef:

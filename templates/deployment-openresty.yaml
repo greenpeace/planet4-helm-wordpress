@@ -6,7 +6,7 @@ metadata:
     app: "planet4"
     chart: {{ template "wordpress.chart" . }}
     component: proxy
-    environment: {{ .Values.environment }}
+    environment: {{ .Values.environment | quote }}
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
