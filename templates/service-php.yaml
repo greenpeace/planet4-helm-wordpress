@@ -5,6 +5,7 @@ metadata:
   labels:
     app: "planet4"
     chart: {{ template "wordpress.chart" . }}
+    environment: {{ .Values.environment | quote }}
     component: "php"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}

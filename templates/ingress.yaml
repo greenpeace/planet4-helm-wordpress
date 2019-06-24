@@ -9,6 +9,7 @@ metadata:
   labels:
     app: {{ .Release.Name }}-wordpress
     chart: {{ template "wordpress.chart" . }}
+    environment: {{ .Values.environment | quote }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 {{- with .Values.ingress.annotations }}
