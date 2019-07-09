@@ -28,7 +28,7 @@ endif
 # If BUILD_TAG is blank there's no tag on this commit
 ifeq ($(strip $(BUILD_TAG)),)
 # Default to branch name - this will lint but not package
-BUILD_TAG := testing
+BUILD_TAG := 0.0.1-testing
 endif
 
 .PHONY: all
@@ -58,7 +58,8 @@ lint-yaml: Chart.yaml requirements.yaml
 	@yamllint requirements.yaml
 
 .PHONY: lint-helm
-	@helm lint .
+lint-helm:
+	@helm --set newrelic.apiKey="testing" lint .
 
 .PHONY: dep
 dep: lint
