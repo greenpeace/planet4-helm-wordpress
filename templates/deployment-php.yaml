@@ -128,7 +128,9 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-db"
                   key: password
-            {{- end }}
+            - name: WP_DB_HOST
+              value: "{{ .Values.dbHostname }}"
+
 
             - name: SSMTP_MAIL_RELAY
               value: {{ .Values.smtp.host }}

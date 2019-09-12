@@ -32,6 +32,7 @@ wp:
     bucket:
     serviceAccountKey:
 
+dbHostname: sqlproxy-gcloud-sqlproxy.sqlproxy
 dbUsername: testing
 # Pass in from environment
 # dbPassword: testing
