@@ -2,14 +2,6 @@ Containers:
 - {{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}
 - {{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}
 
-{{- if .Values.sqlproxy.enabled }}
-
-CloudSQL:
-User:     {{ .Values.dbUsername | b64dec }}
-Database: {{ .Values.dbDatabase }}
-
-{{- end }}
-
 {{- if .Values.ingress.enabled }}
 
 Frontend:
