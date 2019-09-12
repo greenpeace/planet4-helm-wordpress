@@ -69,7 +69,7 @@ php:
   resources:
     requests:
       memory: "512Mi"
-      cpu: "200m" # * targetCPUUtilizationPercentage. 200m * 500 = 1 CPU
+      cpu: "100m" # * targetCPUUtilizationPercentage. 100m * 500 = .5 CPU
     limits:
       memory: "1Gi"
       cpu: "2"
