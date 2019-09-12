@@ -173,22 +173,6 @@ pagespeed:
     enabled: false
   enabled: false
 
-sqlproxy:
-  enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 64Mi
-    limits:
-      memory: 150Mi
-      cpu: 150m
-  cloudsql:
-    instances:
-      #- instance: db-instance-name
-      #  project: gcp-project
-      #  region: us-central1
-      #  port: 3306
-
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

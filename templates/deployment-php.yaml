@@ -116,9 +116,6 @@ spec:
                   name: "{{ .Release.Name }}-stateless"
                   key: credentials.json
 
-            {{- if .Values.sqlproxy.enabled }}
-            - name: WP_DB_HOST
-              value: "{{ .Release.Name }}-sqlproxy"
             - name: MYSQL_DATABASE
               value: "{{ .Values.dbDatabase }}"
             - name: MYSQL_USER

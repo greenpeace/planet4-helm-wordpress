@@ -18,8 +18,7 @@ helm repo add p4-helm-charts https://p4-helm-charts.storage.googleapis.com
 helm upgrade --install p4-gpi \
   -f values-local.yaml \
   --set wp.stateless.serviceAccountKey="$(cat secrets/cloudstorage-service-account.json | base64 -w 0)" \
-  --set sqlproxy.serviceAccountKey="$(cat secrets/cloudsql-service-account.json | base64 -w 0)" \
-  p4-helm-charts/wordpress
+
 
 ```
 
