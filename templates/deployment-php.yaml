@@ -91,6 +91,14 @@ spec:
               value: tcp://{{ template "redis.fullname" . }}-master:6379
             {{- end }}
 
+            {{- if .Values.sentryDsn }}
+            - name: WP_SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-sentry"
+                  key: sentryDsn
+            {{- end }}
+
             - name: PHP_PROCESS_MANAGER_MAX_CHILDREN
               value: {{ .Values.php.process.maxChildren | quote }}
             - name: PHP_PROCESS_MANAGER_MAX_REQUESTS
