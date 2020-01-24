@@ -62,8 +62,28 @@ spec:
           {{- else }}
             value: "false"
           {{- end }}
+
           - name: GEOIP2_ENABLED
-            value: {{ .Values.openresty.geoip | quote }}
+            value: {{ .Values.openresty.geoip.enabled | quote }}
+          {{- if .Values.openresty.geoip.enabled }}
+            value: "true"
+          - name: MAXMIND_ACCOUNTID
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-maxmind"
+                key: accountid
+          - name: MAXMIND_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-maxmind"
+                key: license
+          {{- else }}
+            value: "false"
+          {{- end }}
+
+          - name: CLOUDFLARE_ENABLED
+            value: {{ .Values.openresty.cloudflare.enabled | quote }}
+
           {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:
