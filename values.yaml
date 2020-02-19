@@ -87,7 +87,6 @@ openresty:
     port: 80
   geoip:
     enabled: false
-  maxmind:
     accountid: ""
     license: ""
   cloudflare:
