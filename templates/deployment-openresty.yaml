@@ -64,7 +64,6 @@ spec:
           {{- end }}
 
           - name: GEOIP2_ENABLED
-            value: {{ .Values.openresty.geoip.enabled | quote }}
           {{- if .Values.openresty.geoip.enabled }}
             value: "true"
           - name: GEOIP_ACCOUNTID
