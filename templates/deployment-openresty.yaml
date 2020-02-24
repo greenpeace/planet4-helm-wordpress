@@ -64,8 +64,8 @@ spec:
           {{- end }}
 
           - name: GEOIP2_ENABLED
+            value: {{ .Values.openresty.geoip.enabled | quote }}
           {{- if .Values.openresty.geoip.enabled }}
-            value: "true"
           - name: GEOIP_ACCOUNTID
             valueFrom:
               secretKeyRef:
@@ -76,8 +76,6 @@ spec:
               secretKeyRef:
                 name: "{{ .Release.Name }}-geoip"
                 key: license
-          {{- else }}
-            value: "false"
           {{- end }}
 
           - name: CLOUDFLARE_ENABLED
