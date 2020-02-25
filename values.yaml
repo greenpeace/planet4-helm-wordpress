@@ -85,7 +85,12 @@ openresty:
   service:
     type: ClusterIP
     port: 80
-  geoip: false # Should increase readinessDelay if geoip is enabled to allow time for DB to load
+  geoip:
+    enabled: false # Should increase readinessDelay if enabled to allow time for DB to load, also incompatible with php
+    accountid: ""
+    license: ""
+  cloudflare:
+    enabled: false
   healthProbes:
     enabled: true
     livenessDelay: 10
