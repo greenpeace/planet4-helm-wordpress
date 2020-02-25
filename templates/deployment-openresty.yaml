@@ -62,8 +62,25 @@ spec:
           {{- else }}
             value: "false"
           {{- end }}
+
           - name: GEOIP2_ENABLED
-            value: {{ .Values.openresty.geoip | quote }}
+            value: {{ .Values.openresty.geoip.enabled | quote }}
+          {{- if .Values.openresty.geoip.enabled }}
+          - name: GEOIP_ACCOUNTID
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-geoip"
+                key: accountid
+          - name: GEOIP_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-geoip"
+                key: license
+          {{- end }}
+
+          - name: CLOUDFLARE_ENABLED
+            value: {{ .Values.openresty.cloudflare.enabled | quote }}
+
           {{- if .Values.openresty.healthProbes.enabled }}
           livenessProbe:
             httpGet:
