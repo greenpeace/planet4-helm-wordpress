@@ -86,7 +86,8 @@ openresty:
     type: ClusterIP
     port: 80
   geoip:
-    enabled: false # Should increase readinessDelay if enabled to allow time for DB to load, also incompatible with php
+    enabled: false
+#Should increase readinessDelay if enabled to allow time for DB to load, also incompatible with php
     accountid: ""
     license: ""
   cloudflare:
@@ -124,35 +125,35 @@ redis:
   usePassword: false
   persistence:
     enabled: false
-  # Disabled as Helm chart does not work when configmap defined
-  # https://github.com/helm/charts/issues/7770
-  # configmap: |-
-  #   maxmemory 200mb
-  #   maxmemory-policy volatile-lfu
+
   master:
     persistence:
       enabled: false
     disableCommands: ""
+    configmap: |-
+     maxmemory 200mb
+     maxmemory-policy volatile-lfu
     resources:
       requests:
         memory: 64Mi
-        cpu: 10m
-      # Disabled until redis maxmemory is able to be defined in config
-      # limits:
-      #   memory: 512Mi
-      #   cpu: 150m
+        cpu: 100m
+      limits:
+        memory: 256Mi
+        cpu: 150m
   slave:
     persistence:
       enabled: false
     disableCommands: ""
+    configmap: |-
+     maxmemory 200mb
+     maxmemory-policy volatile-lfu
     resources:
       requests:
         memory: 64Mi
-        cpu: 10m
-      # Disabled until redis maxmemory is able to be defined in config
-      # limits:
-      #   memory: 512Mi
-      #   cpu: 150m
+        cpu: 100m
+      limits:
+        memory: 256Mi
+        cpu: 150m
 
 ingress:
   enabled: true
