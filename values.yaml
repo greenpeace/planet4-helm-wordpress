@@ -125,14 +125,14 @@ redis:
   usePassword: false
   persistence:
     enabled: false
+  configmap: |-
+     maxmemory 200mb
+     maxmemory-policy allkeys-lfu
 
   master:
     persistence:
       enabled: false
     disableCommands: ""
-    configmap: |-
-     maxmemory 200mb
-     maxmemory-policy volatile-lfu
     resources:
       requests:
         memory: 64Mi
@@ -144,9 +144,6 @@ redis:
     persistence:
       enabled: false
     disableCommands: ""
-    configmap: |-
-     maxmemory 200mb
-     maxmemory-policy volatile-lfu
     resources:
       requests:
         memory: 64Mi
