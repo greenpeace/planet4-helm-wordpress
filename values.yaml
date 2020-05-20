@@ -136,10 +136,10 @@ redis:
     resources:
       requests:
         memory: 64Mi
-        cpu: 100m
+        cpu: 10m
       limits:
         memory: 256Mi
-        cpu: 150m
+        cpu: 1
   slave:
     persistence:
       enabled: false
@@ -147,10 +147,10 @@ redis:
     resources:
       requests:
         memory: 64Mi
-        cpu: 100m
+        cpu: 10m
       limits:
         memory: 256Mi
-        cpu: 150m
+        cpu: 1
 
 ingress:
   enabled: true
