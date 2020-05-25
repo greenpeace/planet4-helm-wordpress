@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 .EXPORT_ALL_VARIABLES:
 
-REDIS_CHART_VERSION ?= 6.4.4
+REDIS_CHART_VERSION ?= 10.6.13
 
 CHART_DIRECTORY ?= ../planet4-helm-charts
 
