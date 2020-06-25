@@ -66,11 +66,11 @@ php:
     readinessPeriod: 10
   minReplicaCount: 2
   maxReplicaCount: 5
-  targetCPUUtilizationPercentage: 500 # Scale up when pod uses 1 core
+  targetCPUUtilizationPercentage: 1000 # Scale up when pod uses 1 core
   resources:
     requests:
       memory: "512Mi"
-      cpu: "100m" # * targetCPUUtilizationPercentage. 100m * 500 = .5 CPU
+      cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000% = .5 CPU
     limits:
       memory: "1Gi"
       cpu: "2"
@@ -100,11 +100,11 @@ openresty:
     readinessPeriod: 10
   minReplicaCount: 2
   maxReplicaCount: 5
-  targetCPUUtilizationPercentage: 1000 # Scale up when pod uses .5 cores
+  targetCPUUtilizationPercentage: 2000 # Scale up when pod uses .5 cores
   resources:
     requests:
       memory: "64Mi"
-      cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000% = .5 CPU
+      cpu: "25m" # * targetCPUUtilizationPercentage. 25m * 2000% = .5 CPU
     limits:
       memory: "256Mi"
       cpu: "1"
