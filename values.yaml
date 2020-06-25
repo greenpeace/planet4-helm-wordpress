@@ -69,7 +69,7 @@ php:
   targetCPUUtilizationPercentage: 1000 # Scale up when pod uses 1 core
   resources:
     requests:
-      memory: "512Mi"
+      memory: "256Mi"
       cpu: "50m" # * targetCPUUtilizationPercentage. 50m * 1000% = .5 CPU
     limits:
       memory: "1Gi"
