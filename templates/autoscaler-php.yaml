@@ -11,7 +11,7 @@ metadata:
 spec:
   scaleTargetRef:
     kind: Deployment
-    apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
     name: {{ template "php.fullname" . }}
   minReplicas: {{ .Values.php.minReplicaCount }}
   maxReplicas: {{ .Values.php.maxReplicaCount }}
