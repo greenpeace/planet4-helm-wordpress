@@ -3,6 +3,7 @@ SHELL := /bin/bash
 .EXPORT_ALL_VARIABLES:
 
 REDIS_CHART_VERSION ?= 10.6.13
+SQLPROXY_CHART_VERSION ?= 0.12.0
 
 CHART_DIRECTORY ?= ../planet4-helm-charts
 
@@ -104,4 +105,4 @@ push: package $(CHART_DIRECTORY)
 .PHONY: update
 update:
 	@helm repo update
-	@helm search $(CHART_NAME)
+	@helm search repo $(CHART_NAME)

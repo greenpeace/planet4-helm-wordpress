@@ -3,3 +3,6 @@ dependencies:
   - name: redis
     version: ${REDIS_CHART_VERSION}
     repository: "@bitnami"
+  - name: gcloud-sqlproxy
+    version: ${SQLPROXY_CHART_VERSION}
+    repository: "@rimusz"
