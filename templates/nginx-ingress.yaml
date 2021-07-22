@@ -15,8 +15,8 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.nginxingress.hosts }}
   tls:
+  {{- if .Values.nginxingress.hosts }}
   {{- range .Values.nginxingress.hosts }}
   {{- if .tls }}
   - hosts:
@@ -24,7 +24,10 @@ spec:
     secretName: {{ .name }}-tls
   {{- end }}
   {{- end }}
-{{- end }}
+  {{- else }}
+  - hosts:
+    - {{ .Values.hostname }}
+  {{- end }}
   rules:
     - host: {{ .Values.hostname }}
       http:
