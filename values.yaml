@@ -162,7 +162,6 @@ ingress:
   #      - chart-example.local
 
 nginxingress:
-  enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
   # # Use this section when you need to us let's encrypt instead of the CF
@@ -170,6 +169,15 @@ nginxingress:
   # hosts:
   #   - name: example.org
   #     tls: true
+
+nginxingresstls:
+  active: tls
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - name: chart-example.local
+      tls: true
 
 ingressProduction:
   enabled: true
