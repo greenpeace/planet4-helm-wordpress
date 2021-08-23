@@ -164,14 +164,11 @@ ingress:
 nginxingress:
   annotations:
     kubernetes.io/ingress.class: nginx
-  # # Use this section when you need to us let's encrypt instead of the CF
-  # # origin cert (when your host is anything but *.greenpeace.org)
-  # hosts:
-  #   - name: example.org
-  #     tls: true
 
+# # Use this section when you need to us let's encrypt instead of the CF
+# # origin cert (when your host is anything but *.greenpeace.org)
+# # add variables per the builder repo to the NRO config.yaml.
 nginxingresstls:
-  active: tls
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
