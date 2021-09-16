@@ -1,0 +1,48 @@
+{{- if .Values.nginxingress.enabled -}}
+{{- $fullName := include "openresty.fullname" . -}}
+apiVersion:  networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-nginx
+  labels:
+    app: {{ .Release.Name }}-wordpress
+    chart: {{ template "wordpress.chart" . }}
+    environment: {{ .Values.environment | quote }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.nginxingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  tls:
+  {{- if .Values.nginxingress.hosts }}
+  {{- range .Values.nginxingress.hosts }}
+  {{- if .tls }}
+  - hosts:
+    - {{ .name }}
+    secretName: {{ .name }}-tls
+  {{- end }}
+  {{- end }}
+  {{- else }}
+  - hosts:
+    - {{ .Values.hostname }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.hostname }}
+      http:
+        paths:
+          - path: /{{ .Values.hostpath | default "" }}
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+    {{- if eq .Values.environment "production" }}
+    - host: {{ .Values.hostnameProduction }}
+      http:
+        paths:
+          - path: /{{ .Values.hostpathProduction | default .Values.hostpath }}
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+    {{- end }}
+{{- end }}
