@@ -65,18 +65,6 @@ spec:
             - name: WP_SET_OPTIONS_ON_BOOT
               value: {{ .Values.wp.setOptionsOnBoot | quote }}
 
-            {{- if .Values.newrelic.enabled }}
-            - name: NEWRELIC_ENABLED
-              value: "true"
-            - name: NEWRELIC_APPNAME
-              value: {{ .Values.newrelic.appname | quote }}
-            - name: NEWRELIC_LICENSE
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-newrelic"
-                  key: license
-            {{- end }}
-
             - name: PHP_MEMORY_LIMIT
               value: {{ .Values.php.memoryLimit | quote }}
 

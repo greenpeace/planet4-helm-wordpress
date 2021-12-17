@@ -58,7 +58,7 @@ lint-yaml: Chart.yaml requirements.yaml
 
 .PHONY: lint-helm
 lint-helm:
-	@helm --set newrelic.apiKey="testing" lint .
+	@helm lint .
 
 .PHONY: dep
 dep: lint

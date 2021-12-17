@@ -112,12 +112,6 @@ openresty:
 smtp:
   host: "smtp-out.greenpeace.org:587"
 
-newrelic:
-  enabled: true
-  appname: Planet 4 Wordpress
-  license: ""
-  apiKey: ""
-
 redis:
   cluster:
     enabled: false
