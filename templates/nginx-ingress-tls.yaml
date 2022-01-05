@@ -33,13 +33,4 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-    {{- if eq .Values.environment "production" }}
-    - host: {{ .Values.hostnameProduction }}
-      http:
-        paths:
-          - path: /{{ .Values.hostpathProduction | default .Values.hostpath }}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
-    {{- end }}
 {{- end }}
