@@ -1,6 +1,6 @@
 {{- if .Values.nginxingresstls.enabled }}
 {{- $fullName := include "openresty.fullname" . -}}
-apiVersion:  networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}-nginx-wtls
@@ -15,6 +15,7 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
+  ingressClassName: {{- .Values.nginxingresstls.ingressClassName -}}
   tls:
   {{- if .Values.nginxingresstls.hosts }}
   {{- range .Values.nginxingresstls.hosts }}
@@ -30,6 +31,7 @@ spec:
       http:
         paths:
           - path: /{{ .Values.hostpath | default "" }}
+            pathType: ImplementationSpecific
             backend:
               serviceName: {{ $fullName }}
               servicePort: http

@@ -2,7 +2,7 @@ Containers:
 - {{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}
 - {{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}
 
-{{- if .Values.ingress.enabled }}
+{{- if .Values.nginxingress.enabled }}
 
 Frontend:
 - https://{{ .Values.hostname }}/{{ .Values.hostpath | default "" }}

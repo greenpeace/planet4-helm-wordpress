@@ -31,6 +31,15 @@ spec:
         heritage: {{ .Release.Service }}
         release: {{ .Release.Name }}
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: "planet4"
+              release: {{ .Release.Name }}
+              component: proxy
       containers:
         - name: {{ template "openresty.fullname" . }}
           image: "{{ .Values.openresty.image.repository }}:{{ .Values.openresty.image.tag }}"
