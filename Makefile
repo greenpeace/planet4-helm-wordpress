@@ -100,7 +100,6 @@ index: lint $(CHART_DIRECTORY)
 .PHONY: push
 push: package $(CHART_DIRECTORY)
 	@gsutil -m rsync -d $(CHART_DIRECTORY) $(CHART_BUCKET)
-	@gsutil setmeta -h "Cache-Control: 60" gs://$(CHART_BUCKET)/index.yaml
 
 .PHONY: update
 update:
