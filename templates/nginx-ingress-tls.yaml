@@ -15,7 +15,7 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-  ingressClassName: {{- .Values.nginxingresstls.ingressClassName -}}
+  ingressClassName: {{ .Values.nginxingresstls.ingressClassName }}
   tls:
   {{- if .Values.nginxingresstls.hosts }}
   {{- range .Values.nginxingresstls.hosts }}
