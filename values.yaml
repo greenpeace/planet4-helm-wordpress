@@ -146,16 +146,8 @@ redis:
         memory: 256Mi
         cpu: 1
 
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
 nginxingress:
+  ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
 
@@ -163,18 +155,13 @@ nginxingress:
 # # origin cert (when your host is anything but *.greenpeace.org)
 # # add variables per the builder repo to the NRO config.yaml.
 nginxingresstls:
+  ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - name: chart-example.local
       tls: true
-
-ingressProduction:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  tls: []
 
 fastcgi:
   backend: false

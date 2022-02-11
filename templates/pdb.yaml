@@ -1,0 +1,23 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "openresty.fullname" . }}
+spec:
+  minAvailable: {{ sub .Values.openresty.minReplicaCount 1 }}
+  selector:
+    matchLabels:
+      app: "planet4"
+      release: {{ .Release.Name }}
+      component: proxy
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "php.fullname" . }}
+spec:
+  minAvailable: {{ sub .Values.php.minReplicaCount 1 }}
+  selector:
+    matchLabels:
+      app: "planet4"
+      release: {{ .Release.Name }}
+      component: php
