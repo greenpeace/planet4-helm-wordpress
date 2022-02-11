@@ -148,8 +148,6 @@ redis:
 
 nginxingress:
   ingressClassName: nginx
-  annotations:
-    kubernetes.io/ingress.class: nginx
 
 # # Use this section when you need to us let's encrypt instead of the CF
 # # origin cert (when your host is anything but *.greenpeace.org)
@@ -157,7 +155,6 @@ nginxingress:
 nginxingresstls:
   ingressClassName: nginx
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - name: chart-example.local
