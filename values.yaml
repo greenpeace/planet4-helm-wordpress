@@ -130,7 +130,7 @@ redis:
     resources:
       requests:
         memory: 64Mi
-        cpu: 10m
+        cpu: 100m
       limits:
         memory: 256Mi
         cpu: 1
@@ -141,7 +141,7 @@ redis:
     resources:
       requests:
         memory: 64Mi
-        cpu: 10m
+        cpu: 100m
       limits:
         memory: 256Mi
         cpu: 1
