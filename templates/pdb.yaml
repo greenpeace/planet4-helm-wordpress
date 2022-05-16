@@ -1,4 +1,4 @@
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "openresty.fullname" . }}
@@ -10,7 +10,7 @@ spec:
       release: {{ .Release.Name }}
       component: proxy
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "php.fullname" . }}
