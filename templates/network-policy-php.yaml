@@ -47,7 +47,7 @@ spec:
           port: 3306
     - to:
         - podSelector:
-            matchlabels:
+            matchLabels:
               app: elasticsearch-data
               chart: elasticsearch
               release: p4-es-data
@@ -59,7 +59,7 @@ spec:
           port: 9200
     - to:
         - podSelector:
-            matchlabels:
+            matchLabels:
               app: apm-server
               release: apm
           namespaceSelector:
