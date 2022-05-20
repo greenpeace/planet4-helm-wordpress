@@ -57,4 +57,15 @@ spec:
       ports:
         - protocol: TCP
           port: 9200
+    - to:
+        - podSelector:
+            matchlabels:
+              app: apm-server
+              release: apm
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: elastic
+      ports:
+        - protocol: TCP
+          port: 8200
 ---
