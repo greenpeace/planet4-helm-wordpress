@@ -104,4 +104,4 @@ push: package $(CHART_DIRECTORY)
 .PHONY: update
 update:
 	@helm3 repo update
-	@helm3 search p4/$(CHART_NAME)
+	@helm3 search repo p4/$(CHART_NAME)
