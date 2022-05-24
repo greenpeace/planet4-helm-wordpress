@@ -1,0 +1,71 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ template "generic.fullname" . }}-php
+  labels:
+    app: "planet4"
+    chart: {{ template "wordpress.chart" . }}
+    environment: {{ .Values.environment | quote }}
+    release: {{ .Release.Name }}
+spec:
+  podSelector:
+    matchLabels:
+      component: php
+      release: {{ .Release.Name }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              component: proxy
+              release: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 80
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: redis
+              release: {{ .Release.Name }}
+      ports:
+        - protocol: TCP
+          port: 6379
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: sqlproxy
+              app.kubernetes.io/name: gcloud-sqlproxy
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: sqlproxy
+      ports:
+        - protocol: TCP
+          port: 3306
+    - to:
+        - podSelector:
+            matchLabels:
+              app: elasticsearch-data
+              chart: elasticsearch
+              release: p4-es-data
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: elastic
+      ports:
+        - protocol: TCP
+          port: 9200
+    - to:
+        - podSelector:
+            matchLabels:
+              app: apm-server
+              release: apm
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: elastic
+      ports:
+        - protocol: TCP
+          port: 8200
+---
