@@ -15,30 +15,15 @@ spec:
       release: {{ .Release.Name }}
   policyTypes:
     - Ingress
-    - Egress
   ingress:
     - from:
         - podSelector:
             matchLabels:
               app.kubernetes.io/instance: nginx-ingress
               app.kubernetes.io/name: ingress-nginx
-      ports:
-        - protocol: TCP
-          port: 80
-  egress:
-    - to:
-        - podSelector:
+          namespaceSelector:
             matchLabels:
-              app: redis
-              release: {{ .Release.Name }}
-      ports:
-        - protocol: TCP
-          port: 6379
-    - to:
-        - podSelector:
-            matchLabels:
-              component: php
-              release: {{ .Release.Name }}
+              kubernetes.io/metadata.name: nginx-ingress
       ports:
         - protocol: TCP
           port: 80

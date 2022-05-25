@@ -15,7 +15,6 @@ spec:
       release: {{ .Release.Name }}
   policyTypes:
     - Ingress
-    - Egress
   ingress:
     - from:
         - podSelector:
@@ -24,48 +23,5 @@ spec:
               release: {{ .Release.Name }}
       ports:
         - protocol: TCP
-          port: 80
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: redis
-              release: {{ .Release.Name }}
-      ports:
-        - protocol: TCP
-          port: 6379
-    - to:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: sqlproxy
-              app.kubernetes.io/name: gcloud-sqlproxy
-          namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: sqlproxy
-      ports:
-        - protocol: TCP
-          port: 3306
-    - to:
-        - podSelector:
-            matchLabels:
-              app: elasticsearch-data
-              chart: elasticsearch
-              release: p4-es-data
-          namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: elastic
-      ports:
-        - protocol: TCP
-          port: 9200
-    - to:
-        - podSelector:
-            matchLabels:
-              app: apm-server
-              release: apm
-          namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: elastic
-      ports:
-        - protocol: TCP
-          port: 8200
+          port: 9000
 ---

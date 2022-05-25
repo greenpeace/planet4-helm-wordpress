@@ -15,7 +15,6 @@ spec:
       release: {{ .Release.Name }}
   policyTypes:
     - Ingress
-    - Egress
   ingress:
     - from:
         - podSelector:
