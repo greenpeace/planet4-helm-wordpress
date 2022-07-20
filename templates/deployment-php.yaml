@@ -180,11 +180,6 @@ spec:
                   name: "{{ .Release.Name }}-keysalt"
                   key: secureAuthSalt
 
-            - name: SMARTSHEET_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-keysalt"
-                  key: smartsheetApiKey
             - name: GOOGLE_SHEETS_KEY
               valueFrom:
                 secretKeyRef:
