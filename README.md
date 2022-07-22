@@ -12,7 +12,7 @@ Charts stored in GS bucket gs://planet4-helm-charts
 
 ```
 # Add alias to remote repository
-helm repo add p4-helm-charts https://p4-helm-charts.storage.googleapis.com
+helm repo add p4-helm-charts https://planet4-helm-charts.storage.googleapis.com
 
 # Install/upgrade command, with custom values
 helm upgrade --install p4-gpi \
