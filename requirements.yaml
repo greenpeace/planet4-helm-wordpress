@@ -1,5 +1,5 @@
 ---
 dependencies:
   - name: redis
-    version: 10.6.13
-    repository: "@p4"
+    version: 17.0.10
+    repository: "@bitnami"
