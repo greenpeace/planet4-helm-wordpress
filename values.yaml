@@ -87,7 +87,6 @@ openresty:
     port: 80
   geoip:
     enabled: false
-#Should increase readinessDelay if enabled to allow time for DB to load, also incompatible with php
     accountid: ""
     license: ""
   cloudflare:
@@ -113,16 +112,18 @@ smtp:
   host: "smtp-out.greenpeace.org:587"
 
 redis:
-  cluster:
+  architecture: standalone
+  auth:
     enabled: false
-    slaveCount: 3
-  usePassword: false
   persistence:
     enabled: false
-  configmap: |-
-     maxmemory 200mb
-     maxmemory-policy allkeys-lfu
-
+  commonConfiguration: |-
+    # Enable AOF https://redis.io/topics/persistence#append-only-file
+    appendonly yes
+    # Disable RDB persistence, AOF persistence already enabled.
+    save ""
+    maxmemory 200mb
+    maxmemory-policy allkeys-lfu
   master:
     persistence:
       enabled: false
@@ -134,7 +135,7 @@ redis:
       limits:
         memory: 256Mi
         cpu: 1
-  slave:
+  replica:
     persistence:
       enabled: false
     disableCommands: ""
@@ -172,8 +173,8 @@ pagespeed:
 
 sentryDsn: ""
 
-
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following

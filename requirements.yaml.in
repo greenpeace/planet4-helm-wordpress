@@ -2,4 +2,4 @@
 dependencies:
   - name: redis
     version: ${REDIS_CHART_VERSION}
-    repository: "@p4"
+    repository: "@bitnami"
