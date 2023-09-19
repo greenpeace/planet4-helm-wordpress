@@ -210,6 +210,11 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: gpAvatarsKey
+            - name: PLANET4_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: planet4ApiKey
 
           ports:
             - name: fastcgi
