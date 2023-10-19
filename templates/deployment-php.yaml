@@ -215,6 +215,11 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: planet4ApiKey
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: sendgridApiKey
 
           ports:
             - name: fastcgi
