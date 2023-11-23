@@ -200,11 +200,6 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: gfLicense
-            - name: GF_SENDGRID_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-keysalt"
-                  key: gfSendgridKey
             - name: GOOGLE_PROFILE_AVATARS_KEY
               valueFrom:
                 secretKeyRef:
