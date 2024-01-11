@@ -69,7 +69,7 @@ $(CHART_DIRECTORY):
 
 .PHONY: pull
 pull: $(CHART_DIRECTORY)
-	@gsutil -m rsync -d $(CHART_BUCKET) $(CHART_DIRECTORY)
+	@gcloud storage rsync $(CHART_BUCKET) $(CHART_DIRECTORY) --delete-unmatched-destination-objects
 
 .PHONY: rewrite rewrite-chart rewrite-requirements
 rewrite: Chart.yaml requirements.yaml
@@ -99,7 +99,7 @@ index: lint $(CHART_DIRECTORY)
 
 .PHONY: push
 push: package $(CHART_DIRECTORY)
-	@gsutil -m rsync -d $(CHART_DIRECTORY) $(CHART_BUCKET)
+	@gcloud storage rsync $(CHART_DIRECTORY) $(CHART_BUCKET) --delete-unmatched-destination-objects
 
 .PHONY: update
 update:
