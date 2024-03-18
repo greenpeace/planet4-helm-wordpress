@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}-openresty-autoscaler
@@ -15,4 +15,10 @@ spec:
     name: {{ template "openresty.fullname" . }}
   minReplicas: {{ .Values.openresty.minReplicaCount }}
   maxReplicas: {{ .Values.openresty.maxReplicaCount }}
-  targetCPUUtilizationPercentage: {{ .Values.openresty.targetCPUUtilizationPercentage }} # * php.resources.requests. 1000% of 50m = .5 CPU
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.openresty.targetCPUUtilizationPercentage }}  # * php.resources.requests. 1000% of 50m = .5 CPU
