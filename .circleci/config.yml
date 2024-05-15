@@ -67,7 +67,7 @@ workflows:
     jobs:
       - lint:
           context: org-global
-      - hold-promote:
+      - hold:
           type: approval
           requires:
             - lint
@@ -77,7 +77,7 @@ workflows:
       - release:
           context: org-global
           requires:
-            - hold-promote
+            - hold
           filters:
             branches:
               only: main
