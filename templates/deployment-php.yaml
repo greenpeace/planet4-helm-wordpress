@@ -190,11 +190,6 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: cloudflareApiKey
-            - name: ELASTIC_APM_SECRET_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ .Release.Name }}-keysalt"
-                  key: elasticApmSecretToken
             - name: GF_LICENSE
               valueFrom:
                 secretKeyRef:
