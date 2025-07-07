@@ -12,6 +12,19 @@ metadata:
     heritage: {{ .Release.Service }}
 {{- with .Values.nginxingress.annotations }}
   annotations:
+    {{- if eq .Values.nginxingress.oauth "p4" }}
+    nginx.ingress.kubernetes.io/auth-url: https://nginx-oauth.greenpeace.org/oauth2/p4/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://nginx-oauth.greenpeace.org/oauth2/p4/start?rd=https://$host$uri
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Email, X-Auth-Request-User
+    {{- else if eq .Values.nginxingress.oauth "gp" }}
+    nginx.ingress.kubernetes.io/auth-url: https://nginx-oauth.greenpeace.org/oauth2/gp/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://nginx-oauth.greenpeace.org/oauth2/gp/start?rd=https://$host$uri
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Email, X-Auth-Request-User
+    {{- else if eq .Values.nginxingress.oauth "ops" }}
+    nginx.ingress.kubernetes.io/auth-url: https://nginx-oauth.greenpeace.org/oauth2/ops/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://nginx-oauth.greenpeace.org/oauth2/ops/start?rd=https://$host$uri
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Email, X-Auth-Request-User
+    {{- end }}
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
