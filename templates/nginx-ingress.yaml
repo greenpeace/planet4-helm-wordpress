@@ -12,6 +12,11 @@ metadata:
     heritage: {{ .Release.Service }}
 {{- with .Values.nginxingress.annotations }}
   annotations:
+    {{- if or (eq .oauth "gp") (eq .oauth "p4") (eq .oauth "ops") }}
+    nginx.ingress.kubernetes.io/auth-url: https://nginx-oauth.greenpeace.org/oauth2/{{ .oauth }}/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://nginx-oauth.greenpeace.org/oauth2/{{ .oauth }}/start?rd=https://$host$uri
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Email, X-Auth-Request-User
+    {{- end }}
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
