@@ -215,6 +215,11 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: sendgridNroApiKey
+            - name: NRO_FORM_DATA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: nroFormDataPrivateKey
 
           ports:
             - name: fastcgi
