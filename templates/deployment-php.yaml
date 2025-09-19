@@ -200,6 +200,11 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: gpAvatarsKey
+            - name: NRO_FORM_DATA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: nroFormDataPrivateKey
             - name: PLANET4_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -215,11 +220,16 @@ spec:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
                   key: sendgridNroApiKey
-            - name: NRO_FORM_DATA_PRIVATE_KEY
+            - name: TURNSTILE_SITE_KEY
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Release.Name }}-keysalt"
-                  key: nroFormDataPrivateKey
+                  key: turnstileSiteKey
+            - name: TURNSTILE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Release.Name }}-keysalt"
+                  key: turnstileSecretKey
 
           ports:
             - name: fastcgi
