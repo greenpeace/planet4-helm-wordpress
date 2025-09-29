@@ -2,4 +2,4 @@
 dependencies:
   - name: redis
     version: 17.0.10
-    repository: "@bitnami"
+    repository: "@bitnami-legacy"
