@@ -112,6 +112,8 @@ smtp:
   host: "smtp-out.greenpeace.org:587"
 
 redis:
+  image:
+    repository: bitnamilegacy/redis
   architecture: standalone
   auth:
     enabled: false
