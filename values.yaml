@@ -135,7 +135,7 @@ redis:
         memory: 64Mi
         cpu: 100m
       limits:
-        memory: 256Mi
+        memory: 512Mi
         cpu: 1
   replica:
     persistence:
@@ -146,7 +146,7 @@ redis:
         memory: 64Mi
         cpu: 100m
       limits:
-        memory: 256Mi
+        memory: 512Mi
         cpu: 1
 
 nginxingress:
